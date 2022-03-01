@@ -386,4 +386,13 @@ public class EntityManager implements IWatchableDirectoryObserver {
         }
         return false;
     }
+
+    public boolean checkUser(String tag, String password) {
+        Optional<User> user = this.mUserMap.values().stream().filter((u -> u.getUserTag().equals(tag))).findFirst();
+
+        if (!user.isPresent()) return false;
+
+        if (user.get().getUserPassword().equals(password)) return true;
+        else return false;
+    }
 }

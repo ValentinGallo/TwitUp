@@ -10,6 +10,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Classe de la vue principale de l'application.
@@ -17,6 +19,7 @@ import java.awt.event.ActionListener;
 public class TwitupMainView extends JFrame implements IDatabaseObserver {
 
     protected JPanel currentPanel;
+
     /**
      * Base de donénes de l'application.
      */
@@ -45,6 +48,11 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver {
     protected void initGUI() {
         // Création de la fenetre principale
         this.setTitle("TwitUp");
+        this.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent we) {
+                System.exit(0);
+            }
+        });
         this.setIconImage(new ImageIcon("src/resources/images/logoIUP_50.jpg").getImage());
         this.setPreferredSize(new Dimension(400, 400));
         this.pack();
@@ -68,14 +76,6 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver {
                 }
             }
         });*/
-        JMenuItem menuCreateAccount = new JMenuItem("Créer un compte");
-        menuCreateAccount.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                TwitupMainView.this.changeCurrentPanel(new TwitupCreateAccount(mEntityManager));
-            }
-        });
-        menuFile.add(menuCreateAccount);
 
         menuFile.addSeparator();
 
@@ -88,9 +88,29 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver {
             }
         });
         menuFile.add(menuLeave);
-
-
         menuBar.add(menuFile);
+
+        JMenu jMenuCompte = new JMenu("Compte");
+        JMenuItem menuInscription = new JMenuItem("Inscription");
+        JMenuItem menuConnexion = new JMenuItem("Connexion");
+
+        menuInscription.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TwitupMainView.this.changeCurrentPanel(new TwitupCreateAccount(TwitupMainView.this.mEntityManager));
+            }
+        });
+
+        menuConnexion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TwitupMainView.this.changeCurrentPanel(new TwitConnexionView(TwitupMainView.this.mEntityManager));
+            }
+        });
+
+        jMenuCompte.add(menuInscription);
+        jMenuCompte.add(menuConnexion);
+        menuBar.add(jMenuCompte);
 
         JMenu menuOther = new JMenu("?");
         JMenuItem menuAbout = new JMenuItem("A Propos");
@@ -116,7 +136,7 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver {
         if (this.currentPanel != null) this.remove(this.currentPanel);
         this.currentPanel = panel;
         this.add(currentPanel);
-        this.revalidate();
+        this.repaint();
     }
 
     /**

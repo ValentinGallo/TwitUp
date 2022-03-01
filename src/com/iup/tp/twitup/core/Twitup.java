@@ -61,7 +61,6 @@ public class Twitup {
         // Initialisation de la base de données
         this.initDatabase();
 
-        this.mIsMockEnabled = true;
         if (this.mIsMockEnabled) {
             // Initialisation du bouchon de travail
             this.initMock();
@@ -97,7 +96,6 @@ public class Twitup {
     protected void initGui() {
         this.mMainView = new TwitupMainView(this.mDatabase, this.mEntityManager);
         mDatabase.addObserver(this.mMainView);
-        this.mMainView.showGUI();
     }
 
     /**
@@ -153,6 +151,6 @@ public class Twitup {
     }
 
     public void show() {
-        // ... setVisible?
+        this.mMainView.showGUI();
     }
 }
