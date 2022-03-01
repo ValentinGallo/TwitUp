@@ -136,6 +136,7 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver {
         if (this.currentPanel != null) this.remove(this.currentPanel);
         this.currentPanel = panel;
         this.add(currentPanel);
+        this.revalidate();
         this.repaint();
     }
 
