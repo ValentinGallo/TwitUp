@@ -9,6 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashSet;
+import java.util.UUID;
 
 public class TwitupCreateAccount extends JPanel implements IDatabaseObserver {
 
@@ -32,12 +34,16 @@ public class TwitupCreateAccount extends JPanel implements IDatabaseObserver {
         String tAvatar = this.nom.getText();
         String tPassword = this.password.getPassword().toString();
 
-        if (tNom.equals("") || tTag.equals("") || tPassword.equals("")) {
+        if (tNom.equals("") || tTag.equals("") || password.getPassword().length < 1) {
             this.jlblStatus.setText("tag | nom | mdp requis.");
         } else if (mEntityManager.tagExist(tTag)) {
             this.jlblStatus.setText("tag déjà existant");
         } else {
-            mEntityManager.addUser(tNom, tTag, tAvatar, tPassword);
+            this.jlblStatus.setText("");
+
+            User newUser = new User(UUID.randomUUID(), tTag, tPassword, tNom, new HashSet<String>(), tAvatar);
+            System.out.println(newUser);
+            mEntityManager.sendUser(newUser);
         }
 
     }

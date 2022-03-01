@@ -380,10 +380,6 @@ public class EntityManager implements IWatchableDirectoryObserver {
         return mDirectoryPath + Constants.SYSTEM_FILE_SEPARATOR + objectUuid + "." + fileExtension;
     }
 
-    public void addUser(String nom, String tag, String avatar, String password) {
-        this.mDatabase.addUser(new User(UUID.randomUUID(), tag, password, nom, null, null));
-    }
-
     public boolean tagExist(String tag) {
         for (User user : this.mDatabase.getUsers()) {
             if (user.getUserTag().equals(tag)) return true;
