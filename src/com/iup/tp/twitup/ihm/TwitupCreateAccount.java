@@ -32,7 +32,7 @@ public class TwitupCreateAccount extends JPanel implements IDatabaseObserver {
         String tNom = this.nom.getText();
         String tTag = this.tag.getText();
         String tAvatar = this.nom.getText();
-        String tPassword = this.password.getPassword().toString();
+        String tPassword = new String(this.password.getPassword());
 
         if (tNom.equals("") || tTag.equals("") || password.getPassword().length < 1) {
             this.jlblStatus.setText("tag | nom | mdp requis.");
