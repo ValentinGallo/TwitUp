@@ -14,7 +14,8 @@ import java.util.UUID;
 
 public class TwitupCreateAccount extends JPanel implements IDatabaseObserver {
 
-    protected JTextField nom, tag, avatar;
+    protected JTextField nom, tag;
+    protected String avatar;
     protected JPasswordField password;
     protected JLabel jlblStatus;
 
@@ -31,7 +32,7 @@ public class TwitupCreateAccount extends JPanel implements IDatabaseObserver {
     public void createAccount() {
         String tNom = this.nom.getText();
         String tTag = this.tag.getText();
-        String tAvatar = this.nom.getText();
+        String tAvatar = this.avatar;
         String tPassword = new String(this.password.getPassword());
 
         if (tNom.equals("") || tTag.equals("") || password.getPassword().length < 1) {
@@ -42,7 +43,7 @@ public class TwitupCreateAccount extends JPanel implements IDatabaseObserver {
             this.jlblStatus.setText("");
 
             User newUser = new User(UUID.randomUUID(), tTag, tPassword, tNom, new HashSet<String>(), tAvatar);
-            System.out.println(newUser);
+            System.out.println(newUser.getAvatarPath());
             mEntityManager.sendUser(newUser);
         }
 
@@ -63,9 +64,22 @@ public class TwitupCreateAccount extends JPanel implements IDatabaseObserver {
         this.add(jlblTag);
         this.add(tag);
         JLabel jlblAvatar = new JLabel("avatar");
-        this.avatar = new JTextField();
+        JButton avatarBtn = new JButton();
+        avatarBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                switch (fileChooser.showOpenDialog(TwitupCreateAccount.this)) {
+                    case JFileChooser.APPROVE_OPTION:
+                        TwitupCreateAccount.this.avatar = fileChooser.getSelectedFile().toString();
+                        avatarBtn.setText(fileChooser.getSelectedFile().getName());
+                        break;
+                }
+            }
+        });
+
         this.add(jlblAvatar);
-        this.add(avatar);
+        this.add(avatarBtn);
         JLabel jlblMdp = new JLabel("mot de passe");
         this.password = new JPasswordField();
         this.add(jlblMdp);
