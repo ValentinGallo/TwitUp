@@ -72,6 +72,7 @@ public class TwitupCreateAccount extends JPanel implements IDatabaseObserver {
                 switch (fileChooser.showOpenDialog(TwitupCreateAccount.this)) {
                     case JFileChooser.APPROVE_OPTION:
                         TwitupCreateAccount.this.avatar = fileChooser.getSelectedFile().toString();
+                        avatarBtn.setText(fileChooser.getSelectedFile().getName());
                         break;
                 }
             }
