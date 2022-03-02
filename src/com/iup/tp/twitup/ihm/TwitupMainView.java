@@ -110,7 +110,7 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver, IViewOb
         menuBar.add(menuFile);
 
         JMenu jMenuCompte = new JMenu("Compte");
-        if (user != null) {
+        if (user == null) {
             JMenuItem menuInscription = new JMenuItem("Inscription");
             JMenuItem menuConnexion = new JMenuItem("Connexion");
 
@@ -139,10 +139,17 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver, IViewOb
             jMenuCompte.add(menuConnexion);
         } else {
             JMenuItem menuUser = new JMenuItem(user.getName());
-            jMenuCompte.addSeparator();
+            if (user.getAvatarPath() != null) {
+                ImageIcon imageIcon = new ImageIcon(user.getAvatarPath()); // load the image to a imageIcon
+                Image image = imageIcon.getImage(); // transform it
+                Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+                menuUser.setIcon(new ImageIcon(newimg));
+            }
+
             JMenuItem menuDeconnexion = new JMenuItem("Déconnexion");
 
             jMenuCompte.add(menuUser);
+            jMenuCompte.addSeparator();
             jMenuCompte.add(menuDeconnexion);
         }
         menuBar.add(jMenuCompte);
