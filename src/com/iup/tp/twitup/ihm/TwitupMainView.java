@@ -38,7 +38,7 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver, IViewOb
     /**
      * Liste des observers
      */
-    protected IMainOberserver mObserver;
+    protected Set<IMainOberserver> mObservers;
 
     /**
      * User courant
@@ -50,6 +50,7 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver, IViewOb
         this.mEntityManager = entityManager;
         // Init auto de l'IHM
         this.initGUI();
+        mObservers = new HashSet<>();
     }
 
     /**
@@ -65,8 +66,14 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver, IViewOb
         });
         this.setIconImage(new ImageIcon("src/resources/images/logoIUP_50.jpg").getImage());
         this.setPreferredSize(new Dimension(400, 400));
+
+        this.initMenuBar(null);
         this.pack();
         this.setLayout(new FlowLayout());
+
+    }
+
+    public void initMenuBar(User user) {
 
         JMenuBar menuBar = new JMenuBar();
         JMenu menuFile = new JMenu("Fichier");
@@ -81,7 +88,9 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver, IViewOb
                 fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                 switch (fileChooser.showOpenDialog(TwitupMainView.this)) {
                     case JFileChooser.APPROVE_OPTION:
-                        TwitupMainView.this.mObserver.notifyDirectoryChanged(fileChooser.getSelectedFile());
+                        TwitupMainView.this.mObservers.forEach((observer) -> {
+                            observer.notifyDirectoryChanged(fileChooser.getSelectedFile());
+                        });
                         break;
                 }
             }
@@ -101,23 +110,48 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver, IViewOb
         menuBar.add(menuFile);
 
         JMenu jMenuCompte = new JMenu("Compte");
-        JMenuItem menuInscription = new JMenuItem("Inscription");
-        JMenuItem menuConnexion = new JMenuItem("Connexion");
+        if (user == null) {
+            JMenuItem menuInscription = new JMenuItem("Inscription");
+            JMenuItem menuConnexion = new JMenuItem("Connexion");
 
-        menuInscription.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { TwitupMainView.this.mObserver.goToInscriptionPage(); }
-        });
+            menuInscription.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    TwitupMainView.this.changeCurrentPanel(new TwitupCreateAccount(TwitupMainView.this.mEntityManager));
+                }
+            });
 
-        menuConnexion.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                TwitupMainView.this.mObserver.goToConnexionPage();
+            menuConnexion.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    TwitConnexionView twitConnexionView = new TwitConnexionView();
+                    twitConnexionView.addObserver(new IConnexionObserver() {
+                        @Override
+                        public boolean notifyConnexion(String tag, String password) {
+                            return TwitupMainView.this.mEntityManager.checkUser(tag, password);
+                        }
+                    });
+                    TwitupMainView.this.changeCurrentPanel(twitConnexionView);
+                }
+            });
+
+            jMenuCompte.add(menuInscription);
+            jMenuCompte.add(menuConnexion);
+        } else {
+            JMenuItem menuUser = new JMenuItem(user.getName());
+            if (user.getAvatarPath() != null) {
+                ImageIcon imageIcon = new ImageIcon(user.getAvatarPath()); // load the image to a imageIcon
+                Image image = imageIcon.getImage(); // transform it
+                Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+                menuUser.setIcon(new ImageIcon(newimg));
             }
-        });
 
-        jMenuCompte.add(menuInscription);
-        jMenuCompte.add(menuConnexion);
+            JMenuItem menuDeconnexion = new JMenuItem("Déconnexion");
+
+            jMenuCompte.add(menuUser);
+            jMenuCompte.addSeparator();
+            jMenuCompte.add(menuDeconnexion);
+        }
         menuBar.add(jMenuCompte);
 
         JMenu menuOther = new JMenu("?");
@@ -137,7 +171,14 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver, IViewOb
         menuBar.add(menuOther);
 
         this.setJMenuBar(menuBar);
+    }
 
+    public void changeCurrentPanel(JPanel panel) {
+        if (this.currentPanel != null) this.remove(this.currentPanel);
+        this.currentPanel = panel;
+        this.add(currentPanel);
+        this.revalidate();
+        this.repaint();
     }
 
     /**
@@ -177,6 +218,7 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver, IViewOb
     @Override
     public void notifyLoggedUser(User user) {
         System.out.println("Logged");
+        this.initMenuBar(user);
     }
 
     @Override
@@ -206,11 +248,11 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver, IViewOb
 
     @Override
     public void addObserver(IMainOberserver observer) {
-        this.mObserver = observer;
+        this.mObservers.add(observer);
     }
 
     @Override
     public void deleteObserver(IMainOberserver observer) {
-        this.mObserver = observer;
+        this.mObservers.remove(observer);
     }
 }
