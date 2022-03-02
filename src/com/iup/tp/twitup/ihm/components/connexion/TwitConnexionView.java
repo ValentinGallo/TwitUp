@@ -60,7 +60,7 @@ public class TwitConnexionView extends JPanel implements IViewObservable<IConnex
                 if (jtfUsername.getText().length() == 0 && jpfPassword.getPassword().length == 0) {
                     jlblStatus.setText("Veuillez entrer un tag et un mot de passe");
                 } else {
-                    if (observer.notifyConnexion(jtfUsername.getText(), new String(jpfPassword.getPassword()))) {
+                    if (observer.checkConnexion(jtfUsername.getText(), new String(jpfPassword.getPassword()))) {
                         TwitConnexionView.this.setVisible(false);
                     } else {
                         jlblStatus.setText("Tag ou mot de passe invalide");

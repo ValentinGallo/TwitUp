@@ -5,18 +5,27 @@ import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.events.file.IWatchableDirectory;
 import com.iup.tp.twitup.events.file.WatchableDirectory;
 import com.iup.tp.twitup.ihm.IMainOberserver;
+import com.iup.tp.twitup.ihm.IViewObservable;
 import com.iup.tp.twitup.ihm.TwitupMainView;
 import com.iup.tp.twitup.ihm.TwitupMock;
+import com.iup.tp.twitup.ihm.components.connexion.IConnexionObserver;
+import com.iup.tp.twitup.ihm.components.connexion.TwitConnexionView;
+import com.iup.tp.twitup.ihm.components.inscription.TwitupCreateAccount;
+import com.iup.tp.twitup.ihm.controller.ConnexionController;
+import com.iup.tp.twitup.ihm.controller.CreateAccountController;
+import com.iup.tp.twitup.ihm.controller.IController;
 
 import javax.swing.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Classe principale l'application.
  *
  * @author S.Lucas
  */
-public class Twitup {
+public class Twitup implements IMainOberserver {
     /**
      * Base de données.
      */
@@ -51,6 +60,8 @@ public class Twitup {
      * Nom de la classe de l'UI.
      */
     protected String mUiClassName;
+
+    protected JPanel currentPanel;
 
     /**
      * Constructeur.
@@ -89,19 +100,14 @@ public class Twitup {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-    }
 
+    }
     /**
      * Initialisation de l'interface graphique.
      */
     protected void initGui() {
         this.mMainView = new TwitupMainView(this.mDatabase, this.mEntityManager);
-        this.mMainView.addObserver(new IMainOberserver() {
-            @Override
-            public void notifyDirectoryChanged(File file) {
-                Twitup.this.initDirectory(file.getAbsolutePath());
-            }
-        });
+        this.mMainView.addObserver(this);
         mDatabase.addObserver(this.mMainView);
     }
 
@@ -149,7 +155,6 @@ public class Twitup {
      * @param directoryPath
      */
     public void initDirectory(String directoryPath) {
-        System.out.println("Ouais la rue");
         mExchangeDirectoryPath = directoryPath;
         mWatchableDirectory = new WatchableDirectory(directoryPath);
         mEntityManager.setExchangeDirectory(directoryPath);
@@ -160,5 +165,32 @@ public class Twitup {
 
     public void show() {
         this.mMainView.showGUI();
+    }
+
+    public void changeCurrentPanelMainView(JPanel panel) {
+        if (this.currentPanel != null) this.mMainView.remove(this.currentPanel);
+        this.currentPanel = panel;
+        this.mMainView.add(currentPanel);
+        this.mMainView.revalidate();
+        this.mMainView.repaint();
+    }
+
+    @Override
+    public void notifyDirectoryChanged(File file) {
+        Twitup.this.initDirectory(file.getAbsolutePath());
+    }
+
+    @Override
+    public void goToConnexionPage() {
+        TwitConnexionView twitConnexionView = new TwitConnexionView();
+        this.changeCurrentPanelMainView(twitConnexionView);
+        twitConnexionView.addObserver(new ConnexionController(this.mDatabase, this.mEntityManager));
+    }
+
+    @Override
+    public void goToInscriptionPage() {
+        TwitupCreateAccount twitupCreateAccount = new TwitupCreateAccount();
+        this.changeCurrentPanelMainView(twitupCreateAccount);
+        twitupCreateAccount.addObserver(new CreateAccountController(this.mDatabase, this.mEntityManager));
     }
 }

@@ -38,7 +38,7 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver, IViewOb
     /**
      * Liste des observers
      */
-    protected Set<IMainOberserver> mObservers;
+    protected IMainOberserver mObserver;
 
     /**
      * User courant
@@ -50,7 +50,6 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver, IViewOb
         this.mEntityManager = entityManager;
         // Init auto de l'IHM
         this.initGUI();
-        mObservers = new HashSet<>();
     }
 
     /**
@@ -82,9 +81,7 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver, IViewOb
                 fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                 switch (fileChooser.showOpenDialog(TwitupMainView.this)) {
                     case JFileChooser.APPROVE_OPTION:
-                        TwitupMainView.this.mObservers.forEach((observer) -> {
-                            observer.notifyDirectoryChanged(fileChooser.getSelectedFile());
-                        });
+                        TwitupMainView.this.mObserver.notifyDirectoryChanged(fileChooser.getSelectedFile());
                         break;
                 }
             }
@@ -109,22 +106,13 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver, IViewOb
 
         menuInscription.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                TwitupMainView.this.changeCurrentPanel(new TwitupCreateAccount(TwitupMainView.this.mEntityManager));
-            }
+            public void actionPerformed(ActionEvent e) { TwitupMainView.this.mObserver.goToInscriptionPage(); }
         });
 
         menuConnexion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TwitConnexionView twitConnexionView = new TwitConnexionView();
-                twitConnexionView.addObserver(new IConnexionObserver() {
-                    @Override
-                    public boolean notifyConnexion(String tag, String password) {
-                        return TwitupMainView.this.mEntityManager.checkUser(tag, password);
-                    }
-                });
-                TwitupMainView.this.changeCurrentPanel(twitConnexionView);
+                TwitupMainView.this.mObserver.goToConnexionPage();
             }
         });
 
@@ -150,14 +138,6 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver, IViewOb
 
         this.setJMenuBar(menuBar);
 
-    }
-
-    public void changeCurrentPanel(JPanel panel) {
-        if (this.currentPanel != null) this.remove(this.currentPanel);
-        this.currentPanel = panel;
-        this.add(currentPanel);
-        this.revalidate();
-        this.repaint();
     }
 
     /**
@@ -226,11 +206,11 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver, IViewOb
 
     @Override
     public void addObserver(IMainOberserver observer) {
-        this.mObservers.add(observer);
+        this.mObserver = observer;
     }
 
     @Override
     public void deleteObserver(IMainOberserver observer) {
-        this.mObservers.remove(observer);
+        this.mObserver = observer;
     }
 }

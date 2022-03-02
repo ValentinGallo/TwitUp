@@ -1,31 +1,26 @@
 package com.iup.tp.twitup.ihm.components.inscription;
 
-import com.iup.tp.twitup.core.EntityManager;
-import com.iup.tp.twitup.datamodel.IDatabaseObserver;
-import com.iup.tp.twitup.datamodel.Twit;
-import com.iup.tp.twitup.datamodel.User;
+import com.iup.tp.twitup.ihm.IViewObservable;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
-import java.util.UUID;
 
-public class TwitupCreateAccount extends JPanel implements IDatabaseObserver {
+public class TwitupCreateAccount extends JPanel implements IViewObservable<ICreateAccountObserver> {
 
     protected JTextField nom, tag;
     protected String avatar;
     protected JPasswordField password;
     protected JLabel jlblStatus;
+    protected ICreateAccountObserver mObserver;
 
     /**
      * Gestionnaire de bdd et de fichier.
      */
-    protected EntityManager mEntityManager;
 
-    public TwitupCreateAccount(EntityManager entityManager) {
-        this.mEntityManager = entityManager;
+    public TwitupCreateAccount() {
         initGUI();
     }
 
@@ -37,14 +32,11 @@ public class TwitupCreateAccount extends JPanel implements IDatabaseObserver {
 
         if (tNom.equals("") || tTag.equals("") || password.getPassword().length < 1) {
             this.jlblStatus.setText("tag | nom | mdp requis.");
-        } else if (mEntityManager.tagExist(tTag)) {
+        } else if (mObserver.isAccountExist(tTag)) {
             this.jlblStatus.setText("tag déjà existant");
         } else {
             this.jlblStatus.setText("");
-
-            User newUser = new User(UUID.randomUUID(), tTag, tPassword, tNom, new HashSet<String>(), tAvatar);
-            System.out.println(newUser.getAvatarPath());
-            mEntityManager.sendUser(newUser);
+            mObserver.notifyCreateAccount(tTag, tPassword, tNom, new HashSet<String>(), tAvatar);
         }
 
     }
@@ -103,37 +95,12 @@ public class TwitupCreateAccount extends JPanel implements IDatabaseObserver {
     }
 
     @Override
-    public void notifyTwitAdded(Twit addedTwit) {
-
+    public void addObserver(ICreateAccountObserver observer) {
+        this.mObserver = observer;
     }
 
     @Override
-    public void notifyLoggedUser(User user) {
-
-    }
-
-    @Override
-    public void notifyTwitDeleted(Twit deletedTwit) {
-
-    }
-
-    @Override
-    public void notifyTwitModified(Twit modifiedTwit) {
-
-    }
-
-    @Override
-    public void notifyUserAdded(User addedUser) {
-
-    }
-
-    @Override
-    public void notifyUserDeleted(User deletedUser) {
-
-    }
-
-    @Override
-    public void notifyUserModified(User modifiedUser) {
+    public void deleteObserver(ICreateAccountObserver observer) {
 
     }
 }
