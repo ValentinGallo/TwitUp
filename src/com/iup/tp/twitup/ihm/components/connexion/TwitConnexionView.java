@@ -1,4 +1,4 @@
-package com.iup.tp.twitup.ihm;
+package com.iup.tp.twitup.ihm.components.connexion;
 
 import com.iup.tp.twitup.core.EntityManager;
 
