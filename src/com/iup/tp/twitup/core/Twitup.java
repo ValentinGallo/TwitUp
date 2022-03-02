@@ -4,6 +4,7 @@ import com.iup.tp.twitup.datamodel.Database;
 import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.events.file.IWatchableDirectory;
 import com.iup.tp.twitup.events.file.WatchableDirectory;
+import com.iup.tp.twitup.ihm.IMainOberserver;
 import com.iup.tp.twitup.ihm.TwitupMainView;
 import com.iup.tp.twitup.ihm.TwitupMock;
 
@@ -95,6 +96,12 @@ public class Twitup {
      */
     protected void initGui() {
         this.mMainView = new TwitupMainView(this.mDatabase, this.mEntityManager);
+        this.mMainView.addObserver(new IMainOberserver() {
+            @Override
+            public void notifyDirectoryChanged(File file) {
+                Twitup.this.initDirectory(file.getAbsolutePath());
+            }
+        });
         mDatabase.addObserver(this.mMainView);
     }
 
@@ -142,6 +149,7 @@ public class Twitup {
      * @param directoryPath
      */
     public void initDirectory(String directoryPath) {
+        System.out.println("Ouais la rue");
         mExchangeDirectoryPath = directoryPath;
         mWatchableDirectory = new WatchableDirectory(directoryPath);
         mEntityManager.setExchangeDirectory(directoryPath);

@@ -94,6 +94,11 @@ public class TwitupCreateAccount extends JPanel implements IDatabaseObserver {
     }
 
     @Override
+    public void notifyLoggedUser(User user) {
+
+    }
+
+    @Override
     public void notifyTwitDeleted(Twit deletedTwit) {
 
     }

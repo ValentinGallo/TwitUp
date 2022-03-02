@@ -1,9 +1,12 @@
 package com.iup.tp.twitup.datamodel;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import com.iup.tp.twitup.common.Constants;
+
+import javax.swing.text.html.Option;
 
 /**
  * Classe représentant les donénes chargées dans l'application.
@@ -42,6 +45,24 @@ public class Database implements IDatabase {
 	public Set<User> getUsers() {
 		// Clonage pour éviter les modifications extérieures.
 		return new HashSet<User>(this.mUsers);
+	}
+
+	/**
+	 * @{inheritDoc
+	 */
+	@Override
+	public boolean checkUser(String tag, String password) {
+		Optional<User> user = this.mUsers.stream().filter((u -> u.getUserTag().equals(tag))).findFirst();
+
+		if (!user.isPresent()) return false;
+
+		if (user.get().getUserPassword().equals(password)) {
+			for (IDatabaseObserver observer : mObservers) {
+				observer.notifyLoggedUser(user.get());
+			}
+			return true;
+		}
+		else return false;
 	}
 
 	/**

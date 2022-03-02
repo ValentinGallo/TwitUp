@@ -1,5 +1,6 @@
 package com.iup.tp.twitup.datamodel;
 
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -27,6 +28,11 @@ public interface IDatabase {
 	 * Retourne la liste des utilisateurs
 	 */
 	Set<User> getUsers();
+
+	/**
+	 * Retourne l'utilisateur par son tag si il existe
+	 */
+	boolean checkUser(String tag, String password);
 
 	/**
 	 * Retourne la liste des twits

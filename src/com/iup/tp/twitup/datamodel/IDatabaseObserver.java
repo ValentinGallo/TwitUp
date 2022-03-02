@@ -13,6 +13,8 @@ public interface IDatabaseObserver {
 	 */
 	void notifyTwitAdded(Twit addedTwit);
 
+	void notifyLoggedUser(User user);
+
 	/**
 	 * Notification lorsqu'un Twit est supprimé de la base de données.
 	 * 

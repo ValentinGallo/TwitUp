@@ -12,11 +12,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Classe de la vue principale de l'application.
  */
-public class TwitupMainView extends JFrame implements IDatabaseObserver {
+public class TwitupMainView extends JFrame implements IDatabaseObserver, IMainView {
 
     protected JPanel currentPanel;
 
@@ -30,16 +33,22 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver {
      */
     protected EntityManager mEntityManager;
 
+    /**
+     * Liste des observers
+     */
+    protected Set<IMainOberserver> mObservers;
+
+    /**
+     * User courant
+     */
+    protected User mUser;
+
     public TwitupMainView(IDatabase database, EntityManager entityManager) {
         this.mDatabase = database;
         this.mEntityManager = entityManager;
         // Init auto de l'IHM
         this.initGUI();
-    }
-
-    public TwitupMainView() {
-        // Init auto de l'IHM
-        this.initGUI();
+        mObservers = new HashSet<>();
     }
 
     /**
@@ -63,19 +72,21 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver {
 
         JMenuItem menuOpen = new JMenuItem("Ouvrir...");
         menuFile.add(menuOpen);
-        /*
+
         menuOpen.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                switch (fileChooser.showOpenDialog(mFrame)) {
+                switch (fileChooser.showOpenDialog(TwitupMainView.this)) {
                     case JFileChooser.APPROVE_OPTION:
-                        mEntityManager.setExchangeDirectory(fileChooser.getSelectedFile().toString());
+                        TwitupMainView.this.mObservers.forEach((observer) -> {
+                            observer.notifyDirectoryChanged(fileChooser.getSelectedFile());
+                        });
                         break;
                 }
             }
-        });*/
+        });
 
         menuFile.addSeparator();
 
@@ -175,6 +186,11 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver {
     }
 
     @Override
+    public void notifyLoggedUser(User user) {
+        System.out.println("Logged");
+    }
+
+    @Override
     public void notifyTwitDeleted(Twit deletedTwit) {
 
     }
@@ -197,5 +213,15 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver {
     @Override
     public void notifyUserModified(User modifiedUser) {
 
+    }
+
+    @Override
+    public void addObserver(IMainOberserver observer) {
+        this.mObservers.add(observer);
+    }
+
+    @Override
+    public void deleteObserver(IMainOberserver observer) {
+        this.mObservers.remove(observer);
     }
 }
