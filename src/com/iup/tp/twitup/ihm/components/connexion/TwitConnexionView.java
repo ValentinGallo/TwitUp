@@ -1,13 +1,15 @@
 package com.iup.tp.twitup.ihm.components.connexion;
 
 import com.iup.tp.twitup.core.EntityManager;
+import com.iup.tp.twitup.ihm.IMainOberserver;
+import com.iup.tp.twitup.ihm.IViewObservable;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TwitConnexionView extends JPanel {
+public class TwitConnexionView extends JPanel implements IViewObservable<IConnexionObserver> {
 
     private final JLabel jlblUsername = new JLabel("Tag");
     private final JLabel jlblPassword = new JLabel("Mot de passe");
@@ -17,11 +19,10 @@ public class TwitConnexionView extends JPanel {
     private final JButton jbtCancel = new JButton("Retour");
     private final JLabel jlblStatus = new JLabel(" ");
 
-    private EntityManager entityManager;
+    private IConnexionObserver observer;
 
-    public TwitConnexionView(EntityManager entityManager) {
+    public TwitConnexionView() {
         this.showGUI();
-        this.entityManager = entityManager;
     }
 
     /**
@@ -59,7 +60,7 @@ public class TwitConnexionView extends JPanel {
                 if (jtfUsername.getText().length() == 0 && jpfPassword.getPassword().length == 0) {
                     jlblStatus.setText("Veuillez entrer un tag et un mot de passe");
                 } else {
-                    if (TwitConnexionView.this.checkUser(jtfUsername.getText(), new String(jpfPassword.getPassword()))) {
+                    if (observer.notifyConnexion(jtfUsername.getText(), new String(jpfPassword.getPassword()))) {
                         TwitConnexionView.this.setVisible(false);
                     } else {
                         jlblStatus.setText("Tag ou mot de passe invalide");
@@ -76,7 +77,13 @@ public class TwitConnexionView extends JPanel {
         });
     }
 
-    private boolean checkUser(String tag, String password) {
-        return entityManager.checkUser(tag, password);
+    @Override
+    public void addObserver(IConnexionObserver observer) {
+        this.observer = observer;
+    }
+
+    @Override
+    public void deleteObserver(IConnexionObserver observer) {
+
     }
 }

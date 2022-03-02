@@ -5,6 +5,7 @@ import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.datamodel.IDatabaseObserver;
 import com.iup.tp.twitup.datamodel.Twit;
 import com.iup.tp.twitup.datamodel.User;
+import com.iup.tp.twitup.ihm.components.connexion.IConnexionObserver;
 import com.iup.tp.twitup.ihm.components.connexion.TwitConnexionView;
 import com.iup.tp.twitup.ihm.components.inscription.TwitupCreateAccount;
 
@@ -20,7 +21,7 @@ import java.util.Set;
 /**
  * Classe de la vue principale de l'application.
  */
-public class TwitupMainView extends JFrame implements IDatabaseObserver, IMainView {
+public class TwitupMainView extends JFrame implements IDatabaseObserver, IViewObservable<IMainOberserver> {
 
     protected JPanel currentPanel;
 
@@ -116,7 +117,14 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver, IMainVi
         menuConnexion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TwitupMainView.this.changeCurrentPanel(new TwitConnexionView(TwitupMainView.this.mEntityManager));
+                TwitConnexionView twitConnexionView = new TwitConnexionView();
+                twitConnexionView.addObserver(new IConnexionObserver() {
+                    @Override
+                    public boolean notifyConnexion(String tag, String password) {
+                        return TwitupMainView.this.mEntityManager.checkUser(tag, password);
+                    }
+                });
+                TwitupMainView.this.changeCurrentPanel(twitConnexionView);
             }
         });
 
