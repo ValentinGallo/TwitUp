@@ -21,7 +21,7 @@ import java.util.Set;
 /**
  * Classe de la vue principale de l'application.
  */
-public class TwitupMainView extends JFrame implements IDatabaseObserver, IViewObservable<IMainOberserver> {
+public class TwitupMainView extends JFrame implements IViewObservable<IMainOberserver> {
 
     /**
      * Base de donénes de l'application.
@@ -188,41 +188,6 @@ public class TwitupMainView extends JFrame implements IDatabaseObserver, IViewOb
      */
     protected void leave() {
         System.exit(0);
-    }
-
-    @Override
-    public void notifyTwitAdded(Twit addedTwit) {
-
-    }
-
-    @Override
-    public void notifyLoggedUser(User user) {
-        this.initMenuBar(user);
-    }
-
-    @Override
-    public void notifyTwitDeleted(Twit deletedTwit) {
-
-    }
-
-    @Override
-    public void notifyTwitModified(Twit modifiedTwit) {
-
-    }
-
-    @Override
-    public void notifyUserAdded(User addedUser) {
-
-    }
-
-    @Override
-    public void notifyUserDeleted(User deletedUser) {
-
-    }
-
-    @Override
-    public void notifyUserModified(User modifiedUser) {
-
     }
 
     @Override

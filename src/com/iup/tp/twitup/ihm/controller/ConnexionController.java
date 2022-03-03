@@ -5,7 +5,6 @@ import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.ihm.components.connexion.IConnexionObserver;
 
 public class ConnexionController extends IController implements IConnexionObserver {
-
     public ConnexionController(IDatabase database, EntityManager entityManager) {
         super(database, entityManager);
     }

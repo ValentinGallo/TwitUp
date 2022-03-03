@@ -2,6 +2,8 @@ package com.iup.tp.twitup.core;
 
 import com.iup.tp.twitup.datamodel.Database;
 import com.iup.tp.twitup.datamodel.IDatabase;
+import com.iup.tp.twitup.datamodel.Twit;
+import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.events.file.IWatchableDirectory;
 import com.iup.tp.twitup.events.file.WatchableDirectory;
 import com.iup.tp.twitup.ihm.IMainOberserver;
@@ -108,7 +110,7 @@ public class Twitup implements IMainOberserver {
     protected void initGui() {
         this.mMainView = new TwitupMainView(this.mDatabase, this.mEntityManager);
         this.mMainView.addObserver(this);
-        mDatabase.addObserver(this.mMainView);
+        mDatabase.addObserver(this);
     }
 
     /**
@@ -192,5 +194,40 @@ public class Twitup implements IMainOberserver {
         TwitupCreateAccount twitupCreateAccount = new TwitupCreateAccount();
         this.changeCurrentPanelMainView(twitupCreateAccount);
         twitupCreateAccount.addObserver(new CreateAccountController(this.mDatabase, this.mEntityManager));
+    }
+
+    @Override
+    public void notifyTwitAdded(Twit addedTwit) {
+
+    }
+
+    @Override
+    public void notifyLoggedUser(User user) {
+        this.mMainView.initMenuBar(user);
+    }
+
+    @Override
+    public void notifyTwitDeleted(Twit deletedTwit) {
+
+    }
+
+    @Override
+    public void notifyTwitModified(Twit modifiedTwit) {
+
+    }
+
+    @Override
+    public void notifyUserAdded(User addedUser) {
+
+    }
+
+    @Override
+    public void notifyUserDeleted(User deletedUser) {
+
+    }
+
+    @Override
+    public void notifyUserModified(User modifiedUser) {
+
     }
 }
