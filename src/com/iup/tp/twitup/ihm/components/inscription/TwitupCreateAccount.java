@@ -14,7 +14,7 @@ public class TwitupCreateAccount extends JPanel implements IViewObservable<ICrea
     protected String avatar;
     protected JPasswordField password;
     protected JLabel jlblStatus;
-    protected ICreateAccountObserver mObserver;
+    protected ICreateAccountObserver observer;
 
     /**
      * Gestionnaire de bdd et de fichier.
@@ -32,11 +32,13 @@ public class TwitupCreateAccount extends JPanel implements IViewObservable<ICrea
 
         if (tNom.equals("") || tTag.equals("") || password.getPassword().length < 1) {
             this.jlblStatus.setText("tag | nom | mdp requis.");
-        } else if (mObserver.isAccountExist(tTag)) {
+        } else if (observer.isAccountExist(tTag)) {
             this.jlblStatus.setText("tag déjà existant");
+        } else if (!observer.isPasswordValid(tPassword)) {
+            this.jlblStatus.setText("Le mot de passe n'est pas assez sécurisé");
         } else {
             this.jlblStatus.setText("");
-            mObserver.notifyCreateAccount(tTag, tPassword, tNom, new HashSet<String>(), tAvatar);
+            observer.notifyCreateAccount(tTag, tPassword, tNom, new HashSet<String>(), tAvatar);
         }
 
     }
@@ -96,7 +98,7 @@ public class TwitupCreateAccount extends JPanel implements IViewObservable<ICrea
 
     @Override
     public void addObserver(ICreateAccountObserver observer) {
-        this.mObserver = observer;
+        this.observer = observer;
     }
 
     @Override

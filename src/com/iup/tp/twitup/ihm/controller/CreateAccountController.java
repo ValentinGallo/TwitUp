@@ -16,6 +16,11 @@ public class CreateAccountController extends IController implements ICreateAccou
     }
 
     @Override
+    public boolean isPasswordValid(String tPassword) {
+        return tPassword.length() > 6;
+    }
+
+    @Override
     public void notifyCreateAccount(String tTag, String tPassword, String tNom, Set<String> follows, String tAvatar) {
         User newUser = new User(UUID.randomUUID(), tTag, tPassword, tNom, new HashSet<String>(), tAvatar);
         this.entityManager.sendUser(newUser);
