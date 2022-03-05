@@ -133,6 +133,12 @@ public class TwitupMainView extends JFrame implements IViewObservable<IMainObers
                 Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
                 menuUser.setIcon(new ImageIcon(newimg));
             }
+            menuUser.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    TwitupMainView.this.observer.goToProfilPage();
+                }
+            });
 
             JMenuItem menuDeconnexion = new JMenuItem("Déconnexion");
 

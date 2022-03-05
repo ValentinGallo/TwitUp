@@ -13,9 +13,11 @@ import com.iup.tp.twitup.ihm.TwitupMock;
 import com.iup.tp.twitup.ihm.components.connexion.IConnexionObserver;
 import com.iup.tp.twitup.ihm.components.connexion.TwitConnexionView;
 import com.iup.tp.twitup.ihm.components.inscription.TwitupCreateAccount;
+import com.iup.tp.twitup.ihm.components.profil.TwitupProfil;
 import com.iup.tp.twitup.ihm.controller.ConnexionController;
 import com.iup.tp.twitup.ihm.controller.CreateAccountController;
 import com.iup.tp.twitup.ihm.controller.IController;
+import com.iup.tp.twitup.ihm.controller.ProfilController;
 
 import javax.swing.*;
 import java.io.File;
@@ -64,6 +66,8 @@ public class Twitup implements IMainOberserver {
     protected String mUiClassName;
 
     protected JPanel currentPanel;
+
+    protected User userLogged = null;
 
     /**
      * Constructeur.
@@ -197,12 +201,20 @@ public class Twitup implements IMainOberserver {
     }
 
     @Override
+    public void goToProfilPage() {
+        TwitupProfil twitupProfil = new TwitupProfil(this.userLogged);
+        this.changeCurrentPanelMainView(twitupProfil);
+        twitupProfil.addObserver(new ProfilController(this.mDatabase, this.mEntityManager));
+    }
+
+    @Override
     public void notifyTwitAdded(Twit addedTwit) {
 
     }
 
     @Override
     public void notifyLoggedUser(User user) {
+        this.userLogged = user;
         this.mMainView.initMenuBar(user);
     }
 

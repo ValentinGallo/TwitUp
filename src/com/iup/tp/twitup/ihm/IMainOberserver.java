@@ -8,4 +8,5 @@ public interface IMainOberserver extends IDatabaseObserver {
     void notifyDirectoryChanged(File file);
     void goToConnexionPage();
     void goToInscriptionPage();
+    void goToProfilPage();
 }
