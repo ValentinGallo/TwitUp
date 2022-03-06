@@ -13,11 +13,9 @@ import com.iup.tp.twitup.ihm.TwitupMock;
 import com.iup.tp.twitup.ihm.components.connexion.IConnexionObserver;
 import com.iup.tp.twitup.ihm.components.connexion.TwitConnexionView;
 import com.iup.tp.twitup.ihm.components.inscription.TwitupCreateAccount;
+import com.iup.tp.twitup.ihm.components.listTwit.TwitupListTwit;
 import com.iup.tp.twitup.ihm.components.profil.TwitupProfil;
-import com.iup.tp.twitup.ihm.controller.ConnexionController;
-import com.iup.tp.twitup.ihm.controller.CreateAccountController;
-import com.iup.tp.twitup.ihm.controller.IController;
-import com.iup.tp.twitup.ihm.controller.ProfilController;
+import com.iup.tp.twitup.ihm.controller.*;
 
 import javax.swing.*;
 import java.io.File;
@@ -58,7 +56,7 @@ public class Twitup implements IMainOberserver {
     /**
      * Idnique si le mode bouchoné est activé.
      */
-    protected boolean mIsMockEnabled = false;
+    protected boolean mIsMockEnabled = true;
 
     /**
      * Nom de la classe de l'UI.
@@ -89,6 +87,11 @@ public class Twitup implements IMainOberserver {
 
         // Initialisation du répertoire d'échange
         this.initDirectory();
+
+        // Initialisation de la liste des twit
+        TwitupListTwit twitupListTwit = new TwitupListTwit(this.mDatabase.getTwits());
+        this.changeCurrentPanelMainView(twitupListTwit);
+        twitupListTwit.addObserver(new ListTwitController(this.mDatabase, this.mEntityManager));
     }
 
     /**

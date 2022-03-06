@@ -10,12 +10,10 @@ import java.awt.*;
 
 public class TwitupTwit extends JPanel implements IDatabaseObserver {
 
-    protected final long mEmissionDate;
-    protected String text;
+    protected Twit twit;
 
-    public TwitupTwit() {
-        this.text = "Max and Lewis are now reportedly earning the same amount to drive in F1 ";
-        this.mEmissionDate = 1889994;
+    public TwitupTwit(Twit twit) {
+        this.twit = twit;
         initGUI();
     }
 
@@ -34,7 +32,7 @@ public class TwitupTwit extends JPanel implements IDatabaseObserver {
         jlblTitle.setIcon(new ImageIcon("src/resources/images/logoIUP_20.jpg"));
         this.add(jlblTitle);
 
-        JLabel jlblText = new JLabel(this.text, SwingConstants.CENTER);
+        JLabel jlblText = new JLabel(this.twit.getText(), SwingConstants.CENTER);
         jlblText.setFont(new Font("Roboto", Font.ITALIC, 12));
         this.add(jlblText);
 
