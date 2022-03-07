@@ -40,7 +40,7 @@ public class TwitupMainView extends JFrame implements IViewObservable<IMainObers
                 System.exit(0);
             }
         });
-        this.setIconImage(new ImageIcon("src/resources/images/logoIUP_50.jpg").getImage());
+        this.setIconImage(new ImageIcon("src/main/resources/images/logoIUP_50.jpg").getImage());
         this.setPreferredSize(new Dimension(400, 400));
 
         this.initMenuBar(null);
@@ -73,7 +73,7 @@ public class TwitupMainView extends JFrame implements IViewObservable<IMainObers
         menuFile.addSeparator();
 
         JMenuItem menuLeave = new JMenuItem("Quitter");
-        menuLeave.setIcon(new ImageIcon("src/resources/images/exitIcon_20.png"));
+        menuLeave.setIcon(new ImageIcon("src/main/resources/images/exitIcon_20.png"));
         menuLeave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
@@ -171,7 +171,7 @@ public class TwitupMainView extends JFrame implements IViewObservable<IMainObers
                         new JLabel("<html><h5 class='text-align:'center''>UBO M2 TILL-A<br/>Département Informatique</h5></html>"),
                         "A propos",
                         JOptionPane.INFORMATION_MESSAGE,
-                        new ImageIcon("src/resources/images/logoIUP_50.jpg"));
+                        new ImageIcon("src/main/resources/images/logoIUP_50.jpg"));
             }
 
         });
