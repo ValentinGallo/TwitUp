@@ -34,17 +34,26 @@ public class TwitupListUser extends JPanel implements IViewObservable<IListUserO
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
+        c.gridwidth = 2;
         this.add(jlblTitle, c);
 
 
         for (User user : this.list_user) {
+            c.gridx = 0;
             c.gridy++;
+            c.gridwidth = 2;
             this.add(new JSeparator(), c);
+            c.gridwidth = 1;
             c.gridy++;
+
             JLabel jlblUser = new JLabel(user.getName());
             jlblUser.setFont(new Font("Roboto", Font.BOLD, 12));
             this.add(jlblUser, c);
 
+            JButton btnFollow = new JButton("Suivre");
+            btnFollow.setFont(new Font("Roboto", Font.BOLD, 12));
+            c.gridx++;
+            this.add(btnFollow, c);
         }
 
 
