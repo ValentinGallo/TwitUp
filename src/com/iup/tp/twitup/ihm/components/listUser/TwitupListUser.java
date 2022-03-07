@@ -38,6 +38,19 @@ public class TwitupListUser extends JPanel implements IViewObservable<IListUserO
         this.add(jlblTitle, c);
 
 
+        JLabel jlblSearchUser = new JLabel("Rechercher :");
+        jlblTitle.setFont(new Font("Roboto", Font.BOLD, 12));
+        c.gridwidth = 1;
+        c.gridx = 0;
+        c.gridy++;
+        this.add(jlblSearchUser, c);
+
+        JTextField jtfSearchUser = new JTextField();
+        jlblTitle.setFont(new Font("Roboto", Font.BOLD, 12));
+        c.gridx++;
+        this.add(jtfSearchUser, c);
+
+
         for (User user : this.list_user) {
             c.gridx = 0;
             c.gridy++;
