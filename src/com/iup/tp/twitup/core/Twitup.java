@@ -7,10 +7,8 @@ import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.events.file.IWatchableDirectory;
 import com.iup.tp.twitup.events.file.WatchableDirectory;
 import com.iup.tp.twitup.ihm.IMainOberserver;
-import com.iup.tp.twitup.ihm.IViewObservable;
 import com.iup.tp.twitup.ihm.TwitupMainView;
 import com.iup.tp.twitup.ihm.TwitupMock;
-import com.iup.tp.twitup.ihm.components.connexion.IConnexionObserver;
 import com.iup.tp.twitup.ihm.components.connexion.TwitConnexionView;
 import com.iup.tp.twitup.ihm.components.inscription.TwitupCreateAccount;
 import com.iup.tp.twitup.ihm.components.listTwit.TwitupListTwit;
@@ -20,8 +18,6 @@ import com.iup.tp.twitup.ihm.controller.*;
 
 import javax.swing.*;
 import java.io.File;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Classe principale l'application.
@@ -112,6 +108,7 @@ public class Twitup implements IMainOberserver {
         }
 
     }
+
     /**
      * Initialisation de l'interface graphique.
      */
@@ -205,11 +202,6 @@ public class Twitup implements IMainOberserver {
     }
 
     @Override
-    public void goToMainPage() {
-
-    }
-
-    @Override
     public void goToProfilPage() {
         TwitupProfil twitupProfil = new TwitupProfil(this.userLogged);
         this.changeCurrentPanelMainView(twitupProfil);
@@ -217,17 +209,29 @@ public class Twitup implements IMainOberserver {
     }
 
     @Override
-    public void goToUsersPages() {
+    public void deconnectUser() {
+        this.userLogged = null;
+        this.mMainView.initMenuBar(null);
+        this.goToInscriptionPage();
+    }
+
+    @Override
+    public void goToListUserPage() {
         TwitupListUser twitupListUser = new TwitupListUser(this.mDatabase.getUsers());
         this.changeCurrentPanelMainView(twitupListUser);
         twitupListUser.addObserver(new ListUserController(this.mDatabase, this.mEntityManager));
     }
 
     @Override
-    public void deconnectUser() {
-        this.userLogged = null;
-        this.mMainView.initMenuBar(null);
-        this.goToInscriptionPage();
+    public void goToListTwitPage() {
+        TwitupListTwit twitupListTwit = new TwitupListTwit(this.mDatabase.getTwits());
+        this.changeCurrentPanelMainView(twitupListTwit);
+        twitupListTwit.addObserver(new ListTwitController(this.mDatabase, this.mEntityManager));
+    }
+
+    @Override
+    public void goToAddTwitPage() {
+
     }
 
     @Override

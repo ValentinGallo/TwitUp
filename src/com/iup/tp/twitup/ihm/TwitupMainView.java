@@ -1,13 +1,6 @@
 package com.iup.tp.twitup.ihm;
 
-import com.iup.tp.twitup.core.EntityManager;
-import com.iup.tp.twitup.datamodel.IDatabase;
-import com.iup.tp.twitup.datamodel.IDatabaseObserver;
-import com.iup.tp.twitup.datamodel.Twit;
 import com.iup.tp.twitup.datamodel.User;
-import com.iup.tp.twitup.ihm.components.connexion.IConnexionObserver;
-import com.iup.tp.twitup.ihm.components.connexion.TwitConnexionView;
-import com.iup.tp.twitup.ihm.components.inscription.TwitupCreateAccount;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,8 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Classe de la vue principale de l'application.
@@ -141,6 +132,35 @@ public class TwitupMainView extends JFrame implements IViewObservable<IMainObers
             jMenuCompte.add(menuDeconnexion);
         }
         menuBar.add(jMenuCompte);
+
+        if (user != null) {
+            JMenu jMenuListTwit = new JMenu("Liste Twit");
+            jMenuListTwit.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    TwitupMainView.this.observer.goToListTwitPage();
+                }
+            });
+            menuBar.add(jMenuListTwit);
+
+            JMenu jmenuListUser = new JMenu("Liste Users");
+            jmenuListUser.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    TwitupMainView.this.observer.goToListUserPage();
+                }
+            });
+            menuBar.add(jmenuListUser);
+
+            JMenu jmenuAddTwit = new JMenu("Poster");
+            jmenuAddTwit.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    TwitupMainView.this.observer.goToAddTwitPage();
+                }
+            });
+            menuBar.add(jmenuAddTwit);
+        }
 
         JMenu menuOther = new JMenu("?");
         JMenuItem menuAbout = new JMenuItem("A Propos");
