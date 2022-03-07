@@ -14,10 +14,7 @@ import com.iup.tp.twitup.ihm.components.inscription.TwitupCreateAccount;
 import com.iup.tp.twitup.ihm.components.listTwit.TwitupListTwit;
 import com.iup.tp.twitup.ihm.components.listUser.TwitupListUser;
 import com.iup.tp.twitup.ihm.components.profil.TwitupProfil;
-import com.iup.tp.twitup.ihm.controller.ConnexionController;
-import com.iup.tp.twitup.ihm.controller.CreateAccountController;
-import com.iup.tp.twitup.ihm.controller.ListTwitController;
-import com.iup.tp.twitup.ihm.controller.ProfilController;
+import com.iup.tp.twitup.ihm.controller.*;
 
 import javax.swing.*;
 import java.io.File;

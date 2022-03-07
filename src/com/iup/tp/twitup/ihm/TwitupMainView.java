@@ -134,7 +134,7 @@ public class TwitupMainView extends JFrame implements IViewObservable<IMainObers
         menuBar.add(jMenuCompte);
 
         if (user != null) {
-            JMenu jMenuListTwit = new JMenu("Liste Twit");
+            JMenuItem jMenuListTwit = new JMenuItem("Liste Twit");
             jMenuListTwit.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -143,7 +143,7 @@ public class TwitupMainView extends JFrame implements IViewObservable<IMainObers
             });
             menuBar.add(jMenuListTwit);
 
-            JMenu jmenuListUser = new JMenu("Liste Users");
+            JMenuItem jmenuListUser = new JMenuItem("Liste Users");
             jmenuListUser.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -152,7 +152,7 @@ public class TwitupMainView extends JFrame implements IViewObservable<IMainObers
             });
             menuBar.add(jmenuListUser);
 
-            JMenu jmenuAddTwit = new JMenu("Poster");
+            JMenuItem jmenuAddTwit = new JMenuItem("Poster");
             jmenuAddTwit.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
