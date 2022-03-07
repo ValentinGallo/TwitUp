@@ -234,7 +234,7 @@ public class Twitup implements IMainOberserver {
     public void goToAddTwitPage() {
         AddTwitView addTwitView = new AddTwitView();
         this.changeCurrentPanelMainView(addTwitView);
-        addTwitView.addObserver(new AddTwitController(this.mDatabase, this.mEntityManager));
+        addTwitView.addObserver(new AddTwitController(this.mDatabase, this.mEntityManager, this.userLogged));
     }
 
     @Override

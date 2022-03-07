@@ -11,6 +11,10 @@ import java.util.Date;
 
 public class AddTwitView extends JPanel implements IViewObservable<IAddTwitObserver> {
 
+    private final JTextField jtfTwitContent = new JTextField();
+    private final JButton jbtTwit = new JButton("Twitter");
+    private final JLabel jlblStatus = new JLabel(" ");
+
     private IAddTwitObserver observer;
 
     public AddTwitView() {
@@ -34,28 +38,40 @@ public class AddTwitView extends JPanel implements IViewObservable<IAddTwitObser
 
         this.setBackground(Color.WHITE);
 
-
-        JLabel jlblTitle = new JLabel("sdsd" + " @" + "sd");
-        jlblTitle.setFont(new Font("Roboto", Font.BOLD, 12));
+        jtfTwitContent.setFont(new Font("Roboto", Font.BOLD, 12));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
-        this.add(jlblTitle, c);
+        this.add(jtfTwitContent, c);
+
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 1;
+        jlblStatus.setForeground(Color.RED);
+        jlblStatus.setHorizontalAlignment(SwingConstants.CENTER);
+        this.add(jlblStatus, c);
 
 
-
-        JLabel jlblText = new JLabel("twit text", SwingConstants.CENTER);
-        jlblText.setFont(new Font("Roboto", Font.ITALIC, 12));
         c.gridx = 0;
         c.gridy = 2;
-        this.add(jlblText, c);
 
-        JButton jbtnFollow = new JButton("Suivre");
-        jlblText.setFont(new Font("Roboto", Font.ITALIC, 12));
-        c.gridx = 0;
-        c.gridy = 3;
-        c.gridwidth = 2;
-        this.add(jbtnFollow, c);
+        jbtTwit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(AddTwitView.this.observer.isTwitOk(jtfTwitContent.getText())) {
+                    AddTwitView.this.observer.twit(jtfTwitContent.getText());
+                    jtfTwitContent.setText("");
+                    jlblStatus.setForeground(Color.GREEN);
+                    jlblStatus.setText("Votre Twit a été posté");
+                }
+                else {
+                    jlblStatus.setForeground(Color.RED);
+                    jlblStatus.setText("Votre message fait plus de 250 caractères");
+                }
+            }
+        });
+
+        this.add(jbtTwit, c);
     }
 
     @Override
