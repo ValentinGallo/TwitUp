@@ -60,12 +60,9 @@ public class TwitupListUser extends JPanel implements IViewObservable<IListUserO
             }
         });
         this.add(jbtnSearch, c);
-
-        this.loadUsers();
-
         this.setBackground(Color.ORANGE);
 
-
+        this.loadUsers();
     }
 
     @Override
@@ -80,6 +77,7 @@ public class TwitupListUser extends JPanel implements IViewObservable<IListUserO
 
     public void loadUsers() {
         GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
         c.gridy = 2;
         for (User user : this.list_user_filtered) {
             c.gridx = 0;
@@ -98,6 +96,7 @@ public class TwitupListUser extends JPanel implements IViewObservable<IListUserO
             c.gridx++;
             this.add(btnFollow, c);
         }
+        this.revalidate();
     }
 
     public void search() {
@@ -108,12 +107,12 @@ public class TwitupListUser extends JPanel implements IViewObservable<IListUserO
         for (User user : this.list_user) {
             Matcher matcher = pattern.matcher(user.getName());
             while (matcher.find()) {
-                System.out.println("Test");
                 this.list_user_filtered.add(user);
+
             }
         }
-        
-        this.loadUsers();
 
+        this.removeAll();
+        this.initGUI();
     }
 }
