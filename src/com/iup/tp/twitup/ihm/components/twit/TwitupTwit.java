@@ -1,10 +1,7 @@
 package com.iup.tp.twitup.ihm.components.twit;
 
-import com.iup.tp.twitup.datamodel.IDatabaseObserver;
 import com.iup.tp.twitup.datamodel.Twit;
-import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.IViewObservable;
-import com.iup.tp.twitup.ihm.components.inscription.ICreateAccountObserver;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -13,6 +10,8 @@ import java.awt.*;
 public class TwitupTwit extends JPanel implements IViewObservable<ITwitObserver> {
 
     protected Twit twit;
+
+    protected ITwitObserver observer;
 
     public TwitupTwit(Twit twit) {
         this.twit = twit;
