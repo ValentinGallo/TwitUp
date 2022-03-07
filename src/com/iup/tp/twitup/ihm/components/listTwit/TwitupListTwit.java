@@ -37,9 +37,26 @@ public class TwitupListTwit extends JPanel implements IViewObservable<IListTwitO
         jlblTitle.setFont(new Font("Roboto", Font.BOLD, 12));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
+        c.gridwidth = 2;
         c.gridy = 0;
         this.add(jlblTitle, c);
 
+        JTextField jtfSearch = new JTextField();
+        jtfSearch.setFont(new Font("Roboto", Font.BOLD, 12));
+        c.gridx = 0;
+        c.gridy = 1;
+        c.gridwidth = 1;
+        this.add(jtfSearch, c);
+
+        JButton jbtnSearch = new JButton("Rechercher");
+        jbtnSearch.setFont(new Font("Roboto", Font.BOLD, 12));
+        c.gridx = 1;
+        c.gridy = 1;
+        this.add(jbtnSearch, c);
+
+
+        c.gridwidth = 2;
+        c.gridx = 0;
 
         for (Twit twit : this.list_twit) {
             c.gridy++;
