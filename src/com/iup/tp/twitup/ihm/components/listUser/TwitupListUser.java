@@ -6,15 +6,23 @@ import com.iup.tp.twitup.ihm.IViewObservable;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TwitupListUser extends JPanel implements IViewObservable<IListUserObserver> {
 
     protected Set<User> list_user;
     protected IListUserObserver observer;
+    protected Set<User> list_user_filtered;
+    JTextField jtfSearchUser;
 
     public TwitupListUser(Set<User> list) {
         this.list_user = list;
+        this.list_user_filtered = list_user;
         initGUI();
     }
 
@@ -37,21 +45,43 @@ public class TwitupListUser extends JPanel implements IViewObservable<IListUserO
         c.gridwidth = 2;
         this.add(jlblTitle, c);
 
-
-        JLabel jlblSearchUser = new JLabel("Rechercher :");
+        jtfSearchUser = new JTextField();
         jlblTitle.setFont(new Font("Roboto", Font.BOLD, 12));
-        c.gridwidth = 1;
-        c.gridx = 0;
         c.gridy++;
-        this.add(jlblSearchUser, c);
-
-        JTextField jtfSearchUser = new JTextField();
-        jlblTitle.setFont(new Font("Roboto", Font.BOLD, 12));
-        c.gridx++;
         this.add(jtfSearchUser, c);
 
+        JButton jbtnSearch = new JButton("Rechercher");
+        jbtnSearch.setFont(new Font("Roboto", Font.BOLD, 12));
+        c.gridy++;
+        jbtnSearch.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TwitupListUser.this.search();
+            }
+        });
+        this.add(jbtnSearch, c);
 
-        for (User user : this.list_user) {
+        this.loadUsers();
+
+        this.setBackground(Color.ORANGE);
+
+
+    }
+
+    @Override
+    public void addObserver(IListUserObserver observer) {
+        this.observer = observer;
+    }
+
+    @Override
+    public void deleteObserver(IListUserObserver observer) {
+
+    }
+
+    public void loadUsers() {
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridy = 2;
+        for (User user : this.list_user_filtered) {
             c.gridx = 0;
             c.gridy++;
             c.gridwidth = 2;
@@ -68,20 +98,22 @@ public class TwitupListUser extends JPanel implements IViewObservable<IListUserO
             c.gridx++;
             this.add(btnFollow, c);
         }
-
-
-        this.setBackground(Color.ORANGE);
-
-
     }
 
-    @Override
-    public void addObserver(IListUserObserver observer) {
-        this.observer = observer;
-    }
+    public void search() {
+        Pattern pattern = Pattern.compile(jtfSearchUser.getText());
 
-    @Override
-    public void deleteObserver(IListUserObserver observer) {
+        this.list_user_filtered = new HashSet<User>();
+
+        for (User user : this.list_user) {
+            Matcher matcher = pattern.matcher(user.getName());
+            while (matcher.find()) {
+                System.out.println("Test");
+                this.list_user_filtered.add(user);
+            }
+        }
+        
+        this.loadUsers();
 
     }
 }

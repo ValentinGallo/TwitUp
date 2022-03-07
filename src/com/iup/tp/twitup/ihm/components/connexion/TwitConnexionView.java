@@ -1,13 +1,13 @@
 package com.iup.tp.twitup.ihm.components.connexion;
 
-import com.iup.tp.twitup.core.EntityManager;
-import com.iup.tp.twitup.ihm.IMainOberserver;
 import com.iup.tp.twitup.ihm.IViewObservable;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class TwitConnexionView extends JPanel implements IViewObservable<IConnexionObserver> {
 
@@ -57,15 +57,7 @@ public class TwitConnexionView extends JPanel implements IViewObservable<IConnex
         jbtOk.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (jtfUsername.getText().length() == 0 && jpfPassword.getPassword().length == 0) {
-                    jlblStatus.setText("Veuillez entrer un tag et un mot de passe");
-                } else {
-                    if (observer.checkConnexion(jtfUsername.getText(), new String(jpfPassword.getPassword()))) {
-                        TwitConnexionView.this.setVisible(false);
-                    } else {
-                        jlblStatus.setText("Tag ou mot de passe invalide");
-                    }
-                }
+                TwitConnexionView.this.connexion();
             }
         });
 
@@ -75,6 +67,24 @@ public class TwitConnexionView extends JPanel implements IViewObservable<IConnex
                 setVisible(false);
             }
         });
+
+        KeyListener keyListener = new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            public void keyPressed(KeyEvent keyEvent) {
+                if (keyEvent.getKeyCode() == KeyEvent.VK_ENTER) TwitConnexionView.this.connexion();
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        };
+        jpfPassword.addKeyListener(keyListener);
+
     }
 
     @Override
@@ -85,5 +95,17 @@ public class TwitConnexionView extends JPanel implements IViewObservable<IConnex
     @Override
     public void deleteObserver(IConnexionObserver observer) {
 
+    }
+
+    public void connexion() {
+        if (jtfUsername.getText().length() == 0 && jpfPassword.getPassword().length == 0) {
+            jlblStatus.setText("Veuillez entrer un tag et un mot de passe");
+        } else {
+            if (observer.checkConnexion(jtfUsername.getText(), new String(jpfPassword.getPassword()))) {
+                TwitConnexionView.this.setVisible(false);
+            } else {
+                jlblStatus.setText("Tag ou mot de passe invalide");
+            }
+        }
     }
 }
