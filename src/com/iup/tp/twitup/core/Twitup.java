@@ -14,6 +14,7 @@ import com.iup.tp.twitup.ihm.components.connexion.IConnexionObserver;
 import com.iup.tp.twitup.ihm.components.connexion.TwitConnexionView;
 import com.iup.tp.twitup.ihm.components.inscription.TwitupCreateAccount;
 import com.iup.tp.twitup.ihm.components.listTwit.TwitupListTwit;
+import com.iup.tp.twitup.ihm.components.listUser.TwitupListUser;
 import com.iup.tp.twitup.ihm.components.profil.TwitupProfil;
 import com.iup.tp.twitup.ihm.controller.*;
 
@@ -213,6 +214,20 @@ public class Twitup implements IMainOberserver {
         TwitupProfil twitupProfil = new TwitupProfil(this.userLogged);
         this.changeCurrentPanelMainView(twitupProfil);
         twitupProfil.addObserver(new ProfilController(this.mDatabase, this.mEntityManager));
+    }
+
+    @Override
+    public void goToUsersPages() {
+        TwitupListUser twitupListUser = new TwitupListUser(this.mDatabase.getUsers());
+        this.changeCurrentPanelMainView(twitupListUser);
+        twitupListUser.addObserver(new ListUserController(this.mDatabase, this.mEntityManager));
+    }
+
+    @Override
+    public void deconnectUser() {
+        this.userLogged = null;
+        this.mMainView.initMenuBar(null);
+        this.goToInscriptionPage();
     }
 
     @Override

@@ -11,7 +11,6 @@ import java.util.Date;
 public class TwitupTwit extends JPanel implements IViewObservable<ITwitObserver> {
 
     protected Twit twit;
-
     protected ITwitObserver observer;
 
     public TwitupTwit(Twit twit) {

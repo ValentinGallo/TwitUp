@@ -1,5 +1,8 @@
 package com.iup.tp.twitup.ihm.components.listUser;
 
-public interface IListUserObserver {
+import com.iup.tp.twitup.datamodel.User;
 
+import java.util.Set;
+
+public interface IListUserObserver {
 }

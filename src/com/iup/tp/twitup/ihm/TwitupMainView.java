@@ -132,7 +132,7 @@ public class TwitupMainView extends JFrame implements IViewObservable<IMainObers
             menuDeconnexion.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    TwitupMainView.this.observer.goToInscriptionPage();
+                    TwitupMainView.this.observer.deconnectUser();
                 }
             });
 

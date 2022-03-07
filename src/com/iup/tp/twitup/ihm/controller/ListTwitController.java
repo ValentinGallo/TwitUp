@@ -9,5 +9,4 @@ public class ListTwitController extends IController implements IListTwitObserver
     public ListTwitController(IDatabase database, EntityManager entityManager) {
         super(database, entityManager);
     }
-
 }

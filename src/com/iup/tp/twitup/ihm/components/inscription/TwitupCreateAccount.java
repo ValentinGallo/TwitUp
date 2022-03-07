@@ -29,16 +29,18 @@ public class TwitupCreateAccount extends JPanel implements IViewObservable<ICrea
         String tTag = this.tag.getText();
         String tAvatar = this.avatar;
         String tPassword = new String(this.password.getPassword());
+        jlblStatus.setForeground(Color.RED);
 
         if (tNom.equals("") || tTag.equals("") || password.getPassword().length < 1) {
-            this.jlblStatus.setText("tag | nom | mdp requis.");
+            this.jlblStatus.setText("Tag | Nom | Mdp requis");
         } else if (observer.isAccountExist(tTag)) {
-            this.jlblStatus.setText("tag déjà existant");
+            this.jlblStatus.setText("Tag déjà existant");
         } else if (!observer.isPasswordValid(tPassword)) {
             this.jlblStatus.setText("Le mot de passe n'est pas assez sécurisé");
         } else {
-            this.jlblStatus.setText("");
             observer.notifyCreateAccount(tTag, tPassword, tNom, new HashSet<String>(), tAvatar);
+            jlblStatus.setForeground(Color.GREEN);
+            this.jlblStatus.setText("Compte créé");
         }
 
     }
