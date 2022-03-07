@@ -8,4 +8,5 @@ public class ListUserController extends IController implements IListUserObserver
     public ListUserController(IDatabase database, EntityManager entityManager) {
         super(database, entityManager);
     }
+
 }

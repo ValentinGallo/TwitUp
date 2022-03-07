@@ -108,7 +108,8 @@ public class TwitupListTwit extends JPanel implements IViewObservable<IListTwitO
                 this.list_twit_filtered.add(twit);
             }
         }
-
+        
+        this.list_twit_filtered.addAll(this.observer.getUserTwits(jtfSearch.getText()));
 
         this.initGUI();
     }
