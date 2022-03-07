@@ -5,4 +5,5 @@
     <UserPassword>123</UserPassword>
     <Name>Valentin</Name>
     <AvatarPath>C:\Users\valen\Pictures\wallhaven-8oev1j.jpg</AvatarPath>
+    <follows>123</follows>
 </ns2:userXml>

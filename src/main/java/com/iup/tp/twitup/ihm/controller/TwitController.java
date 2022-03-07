@@ -16,22 +16,19 @@ public class TwitController extends IController implements ITwitObserver {
 
     @Override
     public Boolean isAlreadyFollowedByUser(User twitUser) {
-        System.out.println(twitUser);
-        System.out.println(this.currentUser);
-        System.out.println(twitUser.getUserTag());
-        System.out.println(this.currentUser.getUserTag());
-        System.out.println(this.currentUser.isFollowing(twitUser));
         return currentUser.isFollowing(twitUser);
     }
 
     @Override
     public void followTwitAuthor(User twitUser) {
         this.currentUser.addFollowing(twitUser.getUserTag());
+        this.entityManager.sendUser(this.currentUser);
     }
 
     @Override
     public void unfollowTwitAuthor(User twitUser) {
         this.currentUser.removeFollowing(twitUser.getUserTag());
+        this.entityManager.sendUser(this.currentUser);
     }
 
     @Override

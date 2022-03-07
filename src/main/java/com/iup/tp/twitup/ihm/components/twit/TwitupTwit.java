@@ -15,8 +15,9 @@ public class TwitupTwit extends JPanel implements IViewObservable<ITwitObserver>
     protected Twit twit;
     protected ITwitObserver observer;
 
-    public TwitupTwit(Twit twit) {
+    public TwitupTwit(Twit twit, ITwitObserver observe) {
         this.twit = twit;
+        this.addObserver(observe);
         initGUI();
     }
 
@@ -24,6 +25,8 @@ public class TwitupTwit extends JPanel implements IViewObservable<ITwitObserver>
      * Initialisation de l'IHM
      */
     protected void initGUI() {
+        this.removeAll();
+
         this.setBorder(new EmptyBorder(5, 5, 5, 5));
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -54,31 +57,37 @@ public class TwitupTwit extends JPanel implements IViewObservable<ITwitObserver>
         c.gridy = 2;
         this.add(jlblText, c);
 
-        System.out.println(this.observer);
         if (this.observer.getCurrentUser() != null) {
-            JButton jbtnFollow = new JButton("Suivre");
+            JButton jbtnFollow = new JButton();
             jlblText.setFont(new Font("Roboto", Font.ITALIC, 12));
             c.gridx = 0;
             c.gridy = 3;
             c.gridwidth = 2;
 
-            jbtnFollow.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    System.out.println(TwitupTwit.this.observer.getCurrentUser());
-                    System.out.println(TwitupTwit.this.twit.getTwiter());
-                    System.out.println(TwitupTwit.this.observer);
-                    if (TwitupTwit.this.observer.isAlreadyFollowedByUser(TwitupTwit.this.twit.getTwiter())) {
-                        jbtnFollow.setText("Ne plus suivre");
+            if (TwitupTwit.this.observer.isAlreadyFollowedByUser(TwitupTwit.this.twit.getTwiter())) {
+                jbtnFollow.setText("Ne plus suivre");
+                jbtnFollow.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
                         TwitupTwit.this.observer.unfollowTwitAuthor(TwitupTwit.this.twit.getTwiter());
-                    } else {
+                        TwitupTwit.this.initGUI();
+                    }
+                });
+            } else {
+                jbtnFollow.setText("Suivre");
+                jbtnFollow.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
                         jbtnFollow.setText("Suivre");
                         TwitupTwit.this.observer.followTwitAuthor(TwitupTwit.this.twit.getTwiter());
+                        TwitupTwit.this.initGUI();
                     }
-                }
-            });
+                });
+            }
 
             this.add(jbtnFollow, c);
+
+            this.revalidate();
         }
 
 

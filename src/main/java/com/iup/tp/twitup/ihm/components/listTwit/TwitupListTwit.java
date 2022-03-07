@@ -73,13 +73,11 @@ public class TwitupListTwit extends JPanel implements IViewObservable<IListTwitO
 
         System.out.println(this.twitController);
         for (Twit twit : this.list_twit_filtered) {
-            System.out.println("UN TWEET");
             c.gridy++;
             this.add(new JSeparator(), c);
             c.gridy++;
 
-            TwitupTwit twitView = new TwitupTwit(twit);
-            twitView.addObserver(this.twitController);
+            TwitupTwit twitView = new TwitupTwit(twit, this.twitController);
             this.add(twitView, c);
 
         }
