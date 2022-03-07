@@ -1,17 +1,12 @@
 package com.iup.tp.twitup.ihm.components.listTwit;
 
 import com.iup.tp.twitup.datamodel.Twit;
-import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.IViewObservable;
-import com.iup.tp.twitup.ihm.components.profil.IProfilObserver;
 import com.iup.tp.twitup.ihm.components.twit.TwitupTwit;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Set;
 
 public class TwitupListTwit extends JPanel implements IViewObservable<IListTwitObserver> {
@@ -35,17 +30,20 @@ public class TwitupListTwit extends JPanel implements IViewObservable<IListTwitO
 
 
         JLabel jlblTitle = new JLabel("Liste des Twit");
+        jlblTitle.setHorizontalAlignment(SwingConstants.CENTER);
         jlblTitle.setFont(new Font("Roboto", Font.BOLD, 12));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
-        this.add(jlblTitle,c);
+        this.add(jlblTitle, c);
 
 
-
-        for (Twit twit:this.list_twit) {
+        for (Twit twit : this.list_twit) {
             c.gridy++;
-            this.add(new TwitupTwit(twit),c);
+            this.add(new JSeparator(), c);
+            c.gridy++;
+            this.add(new TwitupTwit(twit), c);
+
         }
 
 
