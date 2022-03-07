@@ -8,6 +8,7 @@ import com.iup.tp.twitup.ihm.components.addtwit.IAddTwitObserver;
 
 public class AddTwitController extends IController implements IAddTwitObserver {
     private User connectedUser;
+
     public AddTwitController(IDatabase database, EntityManager entityManager, User user) {
         super(database, entityManager);
         this.connectedUser = user;
@@ -20,6 +21,7 @@ public class AddTwitController extends IController implements IAddTwitObserver {
 
     @Override
     public void twit(String message) {
+        System.out.println(connectedUser);
         this.entityManager.sendTwit(new Twit(connectedUser, message));
     }
 }

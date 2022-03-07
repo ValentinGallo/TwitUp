@@ -7,25 +7,35 @@ import com.iup.tp.twitup.ihm.components.twit.ITwitObserver;
 
 public class TwitController extends IController implements ITwitObserver {
 
-    public TwitController(IDatabase database, EntityManager entityManager) {
+    protected User currentUser;
+
+    public TwitController(IDatabase database, EntityManager entityManager, User currentUser) {
         super(database, entityManager);
+        this.currentUser = currentUser;
     }
 
     @Override
-    public Boolean isAlreadyFollowedByUser(User currentUser, User twitUser) {
+    public Boolean isAlreadyFollowedByUser(User twitUser) {
+        System.out.println(twitUser);
+        System.out.println(this.currentUser);
         System.out.println(twitUser.getUserTag());
-        System.out.println(currentUser.getUserTag());
-        System.out.println(currentUser.isFollowing(twitUser));
+        System.out.println(this.currentUser.getUserTag());
+        System.out.println(this.currentUser.isFollowing(twitUser));
         return currentUser.isFollowing(twitUser);
     }
 
     @Override
-    public void followTwitAuthor(User currentUser, User twitUser) {
-        currentUser.addFollowing(twitUser.getUserTag());
+    public void followTwitAuthor(User twitUser) {
+        this.currentUser.addFollowing(twitUser.getUserTag());
     }
 
     @Override
-    public void unfollowTwitAuthor(User currentUser, User twitUser) {
-        currentUser.removeFollowing(twitUser.getUserTag());
+    public void unfollowTwitAuthor(User twitUser) {
+        this.currentUser.removeFollowing(twitUser.getUserTag());
+    }
+
+    @Override
+    public User getCurrentUser() {
+        return this.currentUser;
     }
 }

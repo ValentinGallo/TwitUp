@@ -1,7 +1,6 @@
 package com.iup.tp.twitup.ihm.components.twit;
 
 import com.iup.tp.twitup.datamodel.Twit;
-import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.IViewObservable;
 
 import javax.swing.*;
@@ -15,11 +14,9 @@ public class TwitupTwit extends JPanel implements IViewObservable<ITwitObserver>
 
     protected Twit twit;
     protected ITwitObserver observer;
-    protected User currentUser;
 
-    public TwitupTwit(Twit twit, User currentUser) {
+    public TwitupTwit(Twit twit) {
         this.twit = twit;
-        this.currentUser = currentUser;
         initGUI();
     }
 
@@ -36,7 +33,10 @@ public class TwitupTwit extends JPanel implements IViewObservable<ITwitObserver>
 
         JLabel jlblTitle = new JLabel(this.twit.getTwiter().getName() + " @" + this.twit.getTwiter().getUserTag());
         jlblTitle.setFont(new Font("Roboto", Font.BOLD, 12));
-        jlblTitle.setIcon(new ImageIcon(this.twit.getTwiter().getAvatarPath()));
+        ImageIcon imageIcon = new ImageIcon(this.twit.getTwiter().getAvatarPath()); // load the image to a imageIcon
+        Image image = imageIcon.getImage(); // transform it
+        Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+        jlblTitle.setIcon(new ImageIcon(newimg));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
@@ -54,7 +54,8 @@ public class TwitupTwit extends JPanel implements IViewObservable<ITwitObserver>
         c.gridy = 2;
         this.add(jlblText, c);
 
-        if(this.currentUser != null) {
+        System.out.println(this.observer);
+        if (this.observer.getCurrentUser() != null) {
             JButton jbtnFollow = new JButton("Suivre");
             jlblText.setFont(new Font("Roboto", Font.ITALIC, 12));
             c.gridx = 0;
@@ -64,13 +65,15 @@ public class TwitupTwit extends JPanel implements IViewObservable<ITwitObserver>
             jbtnFollow.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if(TwitupTwit.this.observer.isAlreadyFollowedByUser(TwitupTwit.this.currentUser, TwitupTwit.this.twit.getTwiter())) {
+                    System.out.println(TwitupTwit.this.observer.getCurrentUser());
+                    System.out.println(TwitupTwit.this.twit.getTwiter());
+                    System.out.println(TwitupTwit.this.observer);
+                    if (TwitupTwit.this.observer.isAlreadyFollowedByUser(TwitupTwit.this.twit.getTwiter())) {
                         jbtnFollow.setText("Ne plus suivre");
-                        TwitupTwit.this.observer.unfollowTwitAuthor(TwitupTwit.this.currentUser, TwitupTwit.this.twit.getTwiter());
-                    }
-                    else {
+                        TwitupTwit.this.observer.unfollowTwitAuthor(TwitupTwit.this.twit.getTwiter());
+                    } else {
                         jbtnFollow.setText("Suivre");
-                        TwitupTwit.this.observer.followTwitAuthor(TwitupTwit.this.currentUser, TwitupTwit.this.twit.getTwiter());
+                        TwitupTwit.this.observer.followTwitAuthor(TwitupTwit.this.twit.getTwiter());
                     }
                 }
             });

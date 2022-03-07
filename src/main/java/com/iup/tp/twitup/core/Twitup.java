@@ -63,7 +63,7 @@ public class Twitup implements IMainOberserver {
 
     protected JPanel currentPanel;
 
-    protected User userLogged = null;
+    protected User currentUser = null;
 
     /**
      * Constructeur.
@@ -123,7 +123,7 @@ public class Twitup implements IMainOberserver {
      * pouvoir utiliser l'application</b>
      */
     protected void initDirectory() {
-        this.initDirectory("src/resources");
+        this.initDirectory("src/main/resources");
     }
 
     /**
@@ -201,14 +201,14 @@ public class Twitup implements IMainOberserver {
 
     @Override
     public void goToProfilPage() {
-        TwitupProfil twitupProfil = new TwitupProfil(this.userLogged);
+        TwitupProfil twitupProfil = new TwitupProfil(this.currentUser);
         this.changeCurrentPanelMainView(twitupProfil);
         twitupProfil.addObserver(new ProfilController(this.mDatabase, this.mEntityManager));
     }
 
     @Override
     public void deconnectUser() {
-        this.userLogged = null;
+        this.currentUser = null;
         this.mMainView.initMenuBar(null);
         this.goToInscriptionPage();
     }
@@ -222,7 +222,7 @@ public class Twitup implements IMainOberserver {
 
     @Override
     public void goToListTwitPage() {
-        TwitupListTwit twitupListTwit = new TwitupListTwit(this.mDatabase.getTwits(), this.userLogged);
+        TwitupListTwit twitupListTwit = new TwitupListTwit(this.mDatabase.getTwits(), new TwitController(this.mDatabase, this.mEntityManager, this.currentUser));
         this.changeCurrentPanelMainView(twitupListTwit);
         twitupListTwit.addObserver(new ListTwitController(this.mDatabase, this.mEntityManager));
     }
@@ -231,7 +231,7 @@ public class Twitup implements IMainOberserver {
     public void goToAddTwitPage() {
         AddTwitView addTwitView = new AddTwitView();
         this.changeCurrentPanelMainView(addTwitView);
-        addTwitView.addObserver(new AddTwitController(this.mDatabase, this.mEntityManager, this.userLogged));
+        addTwitView.addObserver(new AddTwitController(this.mDatabase, this.mEntityManager, this.currentUser));
     }
 
     @Override
@@ -241,7 +241,7 @@ public class Twitup implements IMainOberserver {
 
     @Override
     public void notifyLoggedUser(User user) {
-        this.userLogged = user;
+        this.currentUser = user;
         this.mMainView.initMenuBar(user);
     }
 

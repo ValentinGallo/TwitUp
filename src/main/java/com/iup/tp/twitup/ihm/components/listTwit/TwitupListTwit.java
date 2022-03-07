@@ -1,24 +1,32 @@
 package com.iup.tp.twitup.ihm.components.listTwit;
 
 import com.iup.tp.twitup.datamodel.Twit;
-import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.IViewObservable;
 import com.iup.tp.twitup.ihm.components.twit.TwitupTwit;
+import com.iup.tp.twitup.ihm.controller.TwitController;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TwitupListTwit extends JPanel implements IViewObservable<IListTwitObserver> {
 
     protected Set<Twit> list_twit;
     protected IListTwitObserver observer;
-    protected User currentUser;
+    protected Set<Twit> list_twit_filtered;
+    protected TwitController twitController;
+    JTextField jtfSearch;
 
-    public TwitupListTwit(Set<Twit> list, User currentUser) {
+    public TwitupListTwit(Set<Twit> list, TwitController twitController) {
         this.list_twit = list;
-        this.currentUser = currentUser;
+        this.list_twit_filtered = list_twit;
+        this.twitController = twitController;
         initGUI();
     }
 
@@ -26,6 +34,8 @@ public class TwitupListTwit extends JPanel implements IViewObservable<IListTwitO
      * Initialisation de l'IHM
      */
     protected void initGUI() {
+        this.removeAll();
+
         this.setBorder(new EmptyBorder(5, 5, 5, 5));
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -41,35 +51,42 @@ public class TwitupListTwit extends JPanel implements IViewObservable<IListTwitO
         c.gridy = 0;
         this.add(jlblTitle, c);
 
-        JTextField jtfSearch = new JTextField();
+        jtfSearch = new JTextField();
         jtfSearch.setFont(new Font("Roboto", Font.BOLD, 12));
-        c.gridx = 0;
-        c.gridy = 1;
-        c.gridwidth = 1;
+        c.gridy++;
         this.add(jtfSearch, c);
 
         JButton jbtnSearch = new JButton("Rechercher");
         jbtnSearch.setFont(new Font("Roboto", Font.BOLD, 12));
-        c.gridx = 1;
-        c.gridy = 1;
+        jbtnSearch.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TwitupListTwit.this.search();
+            }
+        });
+        c.gridy++;
         this.add(jbtnSearch, c);
 
 
         c.gridwidth = 2;
         c.gridx = 0;
 
-        for (Twit twit : this.list_twit) {
+        System.out.println(this.twitController);
+        for (Twit twit : this.list_twit_filtered) {
+            System.out.println("UN TWEET");
             c.gridy++;
             this.add(new JSeparator(), c);
             c.gridy++;
-            this.add(new TwitupTwit(twit, this.currentUser), c);
+
+            TwitupTwit twitView = new TwitupTwit(twit);
+            twitView.addObserver(this.twitController);
+            this.add(twitView, c);
 
         }
 
 
         this.setBackground(Color.ORANGE);
-
-
+        this.revalidate();
     }
 
     @Override
@@ -80,5 +97,21 @@ public class TwitupListTwit extends JPanel implements IViewObservable<IListTwitO
     @Override
     public void deleteObserver(IListTwitObserver observer) {
 
+    }
+
+    public void search() {
+        Pattern pattern = Pattern.compile(jtfSearch.getText());
+
+        this.list_twit_filtered = new HashSet<Twit>();
+
+        for (Twit twit : this.list_twit) {
+            Matcher matcher = pattern.matcher(twit.getText());
+            while (matcher.find()) {
+                this.list_twit_filtered.add(twit);
+            }
+        }
+
+
+        this.initGUI();
     }
 }
