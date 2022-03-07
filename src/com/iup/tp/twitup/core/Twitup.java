@@ -86,10 +86,7 @@ public class Twitup implements IMainOberserver {
         // Initialisation du répertoire d'échange
         this.initDirectory();
 
-        // Initialisation de la liste des twit
-        TwitupListTwit twitupListTwit = new TwitupListTwit(this.mDatabase.getTwits());
-        this.changeCurrentPanelMainView(twitupListTwit);
-        twitupListTwit.addObserver(new ListTwitController(this.mDatabase, this.mEntityManager));
+        this.goToListTwitPage();
     }
 
     /**
@@ -225,7 +222,7 @@ public class Twitup implements IMainOberserver {
 
     @Override
     public void goToListTwitPage() {
-        TwitupListTwit twitupListTwit = new TwitupListTwit(this.mDatabase.getTwits());
+        TwitupListTwit twitupListTwit = new TwitupListTwit(this.mDatabase.getTwits(), this.userLogged);
         this.changeCurrentPanelMainView(twitupListTwit);
         twitupListTwit.addObserver(new ListTwitController(this.mDatabase, this.mEntityManager));
     }

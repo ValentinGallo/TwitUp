@@ -1,6 +1,7 @@
 package com.iup.tp.twitup.ihm.components.listTwit;
 
 import com.iup.tp.twitup.datamodel.Twit;
+import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.IViewObservable;
 import com.iup.tp.twitup.ihm.components.twit.TwitupTwit;
 
@@ -13,9 +14,11 @@ public class TwitupListTwit extends JPanel implements IViewObservable<IListTwitO
 
     protected Set<Twit> list_twit;
     protected IListTwitObserver observer;
+    protected User currentUser;
 
-    public TwitupListTwit(Set<Twit> list) {
+    public TwitupListTwit(Set<Twit> list, User currentUser) {
         this.list_twit = list;
+        this.currentUser = currentUser;
         initGUI();
     }
 
@@ -42,7 +45,7 @@ public class TwitupListTwit extends JPanel implements IViewObservable<IListTwitO
             c.gridy++;
             this.add(new JSeparator(), c);
             c.gridy++;
-            this.add(new TwitupTwit(twit), c);
+            this.add(new TwitupTwit(twit, this.currentUser), c);
 
         }
 
