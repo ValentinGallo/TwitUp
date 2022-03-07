@@ -9,6 +9,7 @@ import com.iup.tp.twitup.events.file.WatchableDirectory;
 import com.iup.tp.twitup.ihm.IMainOberserver;
 import com.iup.tp.twitup.ihm.TwitupMainView;
 import com.iup.tp.twitup.ihm.TwitupMock;
+import com.iup.tp.twitup.ihm.components.addtwit.AddTwitView;
 import com.iup.tp.twitup.ihm.components.connexion.TwitConnexionView;
 import com.iup.tp.twitup.ihm.components.inscription.TwitupCreateAccount;
 import com.iup.tp.twitup.ihm.components.listTwit.TwitupListTwit;
@@ -231,7 +232,9 @@ public class Twitup implements IMainOberserver {
 
     @Override
     public void goToAddTwitPage() {
-
+        AddTwitView addTwitView = new AddTwitView();
+        this.changeCurrentPanelMainView(addTwitView);
+        addTwitView.addObserver(new AddTwitController(this.mDatabase, this.mEntityManager));
     }
 
     @Override

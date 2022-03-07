@@ -9,5 +9,4 @@ public class ProfilController extends IController implements IProfilObserver {
     public ProfilController(IDatabase database, EntityManager entityManager) {
         super(database, entityManager);
     }
-
 }
