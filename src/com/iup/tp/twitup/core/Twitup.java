@@ -115,7 +115,7 @@ public class Twitup implements IMainOberserver {
      * Initialisation de l'interface graphique.
      */
     protected void initGui() {
-        this.mMainView = new TwitupMainView(this.mDatabase, this.mEntityManager);
+        this.mMainView = new TwitupMainView();
         this.mMainView.addObserver(this);
         mDatabase.addObserver(this);
     }
@@ -201,6 +201,11 @@ public class Twitup implements IMainOberserver {
         TwitupCreateAccount twitupCreateAccount = new TwitupCreateAccount();
         this.changeCurrentPanelMainView(twitupCreateAccount);
         twitupCreateAccount.addObserver(new CreateAccountController(this.mDatabase, this.mEntityManager));
+    }
+
+    @Override
+    public void goToMainPage() {
+
     }
 
     @Override

@@ -24,16 +24,6 @@ import java.util.Set;
 public class TwitupMainView extends JFrame implements IViewObservable<IMainOberserver> {
 
     /**
-     * Base de donénes de l'application.
-     */
-    protected IDatabase mDatabase;
-
-    /**
-     * Gestionnaire de bdd et de fichier.
-     */
-    protected EntityManager mEntityManager;
-
-    /**
      * Liste des observers
      */
     protected IMainOberserver observer;
@@ -43,9 +33,7 @@ public class TwitupMainView extends JFrame implements IViewObservable<IMainObers
      */
     protected User mUser;
 
-    public TwitupMainView(IDatabase database, EntityManager entityManager) {
-        this.mDatabase = database;
-        this.mEntityManager = entityManager;
+    public TwitupMainView() {
         // Init auto de l'IHM
         this.initGUI();
     }
@@ -141,6 +129,12 @@ public class TwitupMainView extends JFrame implements IViewObservable<IMainObers
             });
 
             JMenuItem menuDeconnexion = new JMenuItem("Déconnexion");
+            menuDeconnexion.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    TwitupMainView.this.observer.goToInscriptionPage();
+                }
+            });
 
             jMenuCompte.add(menuUser);
             jMenuCompte.addSeparator();

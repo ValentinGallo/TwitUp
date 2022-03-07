@@ -3,12 +3,14 @@ package com.iup.tp.twitup.ihm.components.twit;
 import com.iup.tp.twitup.datamodel.IDatabaseObserver;
 import com.iup.tp.twitup.datamodel.Twit;
 import com.iup.tp.twitup.datamodel.User;
+import com.iup.tp.twitup.ihm.IViewObservable;
+import com.iup.tp.twitup.ihm.components.inscription.ICreateAccountObserver;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class TwitupTwit extends JPanel implements IDatabaseObserver {
+public class TwitupTwit extends JPanel implements IViewObservable<ITwitObserver> {
 
     protected Twit twit;
 
@@ -43,37 +45,12 @@ public class TwitupTwit extends JPanel implements IDatabaseObserver {
     }
 
     @Override
-    public void notifyTwitAdded(Twit addedTwit) {
-
+    public void addObserver(ITwitObserver observer) {
+        this.observer = observer;
     }
 
     @Override
-    public void notifyLoggedUser(User user) {
-
-    }
-
-    @Override
-    public void notifyTwitDeleted(Twit deletedTwit) {
-
-    }
-
-    @Override
-    public void notifyTwitModified(Twit modifiedTwit) {
-
-    }
-
-    @Override
-    public void notifyUserAdded(User addedUser) {
-
-    }
-
-    @Override
-    public void notifyUserDeleted(User deletedUser) {
-
-    }
-
-    @Override
-    public void notifyUserModified(User modifiedUser) {
-
+    public void deleteObserver(ITwitObserver observer) {
+        this.observer = null;
     }
 }

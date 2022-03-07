@@ -9,4 +9,5 @@ public interface IMainOberserver extends IDatabaseObserver {
     void goToConnexionPage();
     void goToInscriptionPage();
     void goToProfilPage();
+    void goToMainPage();
 }
