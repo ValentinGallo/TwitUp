@@ -1,12 +1,7 @@
 package com.iup.tp.twitup.ihm.components.profil;
 
-import com.iup.tp.twitup.datamodel.IDatabaseObserver;
-import com.iup.tp.twitup.datamodel.Twit;
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.IViewObservable;
-import com.iup.tp.twitup.ihm.components.connexion.IConnexionObserver;
-import com.iup.tp.twitup.ihm.components.inscription.ICreateAccountObserver;
-import com.iup.tp.twitup.ihm.components.inscription.TwitupCreateAccount;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -29,6 +24,7 @@ public class TwitupProfil extends JPanel implements IViewObservable<IProfilObser
      */
     protected void initGUI() {
         this.setBorder(new EmptyBorder(5, 5, 5, 5));
+        this.setBackground(Color.ORANGE);
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         //this.setPreferredSize(new Dimension(200, 100));
@@ -39,7 +35,7 @@ public class TwitupProfil extends JPanel implements IViewObservable<IProfilObser
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
-        this.add(jlblTitle,c);
+        this.add(jlblTitle, c);
 
         //TAG
         JLabel jlblTag = new JLabel("Tag :");
@@ -49,18 +45,18 @@ public class TwitupProfil extends JPanel implements IViewObservable<IProfilObser
         c.gridx = 0;
         c.gridy = 1;
         c.weightx = 0.5;
-        this.add(jlblTag,c);
+        this.add(jlblTag, c);
         c.gridx = 1;
-        this.add(jtfieldTag,c);
+        this.add(jtfieldTag, c);
 
         //NOM
-        JLabel jlblNom= new JLabel("Nom :");
+        JLabel jlblNom = new JLabel("Nom :");
         JTextField jtfieldNom = new JTextField(this.user.getName());
         c.gridx = 0;
         c.gridy = 2;
-        this.add(jlblNom,c);
+        this.add(jlblNom, c);
         c.gridx = 1;
-        this.add(jtfieldNom,c);
+        this.add(jtfieldNom, c);
 
         //AVATAR
         JLabel jlblAvatar = new JLabel("Avatar :");
@@ -82,27 +78,25 @@ public class TwitupProfil extends JPanel implements IViewObservable<IProfilObser
         });
         c.gridx = 0;
         c.gridy = 3;
-        this.add(jlblAvatar,c);
+        this.add(jlblAvatar, c);
         c.gridx = 1;
-        this.add(avatarBtn,c);
+        this.add(avatarBtn, c);
 
         //MOT DE PASSE
         JLabel jlblMdp = new JLabel("Mot de passe :");
         JPasswordField jtfieldPassword = new JPasswordField();
         c.gridx = 0;
         c.gridy = 4;
-        this.add(jlblMdp,c);
+        this.add(jlblMdp, c);
         c.gridx = 1;
-        this.add(jtfieldPassword,c);
+        this.add(jtfieldPassword, c);
 
         //BTN VALIDATE
         JButton submitBtn = new JButton("Modifier");
         c.gridx = 0;
         c.gridy = 5;
         c.gridwidth = 2;
-        this.add(submitBtn,c);
-
-        this.setBackground(Color.ORANGE);
+        this.add(submitBtn, c);
 
 
     }

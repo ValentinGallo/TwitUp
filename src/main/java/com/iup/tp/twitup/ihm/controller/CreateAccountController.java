@@ -17,7 +17,7 @@ public class CreateAccountController extends IController implements ICreateAccou
 
     @Override
     public boolean isPasswordValid(String tPassword) {
-        return tPassword.length() > 6;
+        return tPassword.length() > 1;
     }
 
     @Override

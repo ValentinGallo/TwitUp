@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ns2:twitXml xmlns:ns2="http://www.example.org/twit/">
-    <ID>0eb9968b-ee2a-4455-af8b-c1f0219fa702</ID>
-    <EmissionDate>1646664840227</EmissionDate>
-    <Twiter>b0aec5e9-12e9-4e2b-a47e-7eca357e3c1b</Twiter>
-    <Text>Twit fictif!! #Mock #test ;)</Text>
-</ns2:twitXml>
