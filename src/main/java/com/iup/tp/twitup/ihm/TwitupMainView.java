@@ -210,6 +210,10 @@ public class TwitupMainView extends JFrame implements IViewObservable<IMainObers
         System.exit(0);
     }
 
+    public void notifyTwitAddedByFollowedUser() {
+        System.out.println("cc");
+    }
+
     @Override
     public void addObserver(IMainOberserver observer) {
         this.observer = observer;

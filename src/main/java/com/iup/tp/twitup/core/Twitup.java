@@ -236,7 +236,11 @@ public class Twitup implements IMainOberserver {
 
     @Override
     public void notifyTwitAdded(Twit addedTwit) {
-
+        if(this.currentUser != null) {
+            if(this.currentUser.isFollowing(addedTwit.getTwiter())) {
+                this.mMainView.notifyTwitAddedByFollowedUser();
+            }
+        }
     }
 
     @Override
