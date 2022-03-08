@@ -105,11 +105,15 @@ public class TwitupListUser extends JPanel implements IViewObservable<IListUserO
         this.list_user_filtered = new HashSet<User>();
 
         for (User user : this.list_user) {
+            if (("@" + user.getUserTag()).equals(jtfSearchUser.getText())) {
+                this.list_user_filtered.add(user);
+                break;
+            }
             Matcher matcher = pattern.matcher(user.getName());
             while (matcher.find()) {
                 this.list_user_filtered.add(user);
-
             }
+
         }
 
         this.removeAll();
