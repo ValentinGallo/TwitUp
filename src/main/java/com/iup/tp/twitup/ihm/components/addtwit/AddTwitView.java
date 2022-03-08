@@ -7,7 +7,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
 
 public class AddTwitView extends JPanel implements IViewObservable<IAddTwitObserver> {
 
@@ -35,8 +34,7 @@ public class AddTwitView extends JPanel implements IViewObservable<IAddTwitObser
         this.setBorder(new EmptyBorder(5, 5, 5, 5));
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-
-        this.setBackground(Color.WHITE);
+        this.setBackground(Color.ORANGE);
 
         jtfTwitContent.setFont(new Font("Roboto", Font.BOLD, 12));
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -58,13 +56,12 @@ public class AddTwitView extends JPanel implements IViewObservable<IAddTwitObser
         jbtTwit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(AddTwitView.this.observer.isTwitOk(jtfTwitContent.getText())) {
+                if (AddTwitView.this.observer.isTwitOk(jtfTwitContent.getText())) {
                     AddTwitView.this.observer.twit(jtfTwitContent.getText());
                     jtfTwitContent.setText("");
                     jlblStatus.setForeground(Color.GREEN);
                     jlblStatus.setText("Votre Twit a été posté");
-                }
-                else {
+                } else {
                     jlblStatus.setForeground(Color.RED);
                     jlblStatus.setText("Votre message fait plus de 250 caractères");
                 }
