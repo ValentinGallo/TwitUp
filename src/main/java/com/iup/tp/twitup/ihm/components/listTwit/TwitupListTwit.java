@@ -27,6 +27,7 @@ public class TwitupListTwit extends JPanel implements IViewObservable<IListTwitO
         this.list_twit = list;
         this.list_twit_filtered = list_twit;
         this.twitController = twitController;
+        jtfSearch = new JTextField();
         initGUI();
     }
 
@@ -51,7 +52,6 @@ public class TwitupListTwit extends JPanel implements IViewObservable<IListTwitO
         c.gridy = 0;
         this.add(jlblTitle, c);
 
-        jtfSearch = new JTextField();
         jtfSearch.setFont(new Font("Roboto", Font.BOLD, 12));
         c.gridy++;
         this.add(jtfSearch, c);
