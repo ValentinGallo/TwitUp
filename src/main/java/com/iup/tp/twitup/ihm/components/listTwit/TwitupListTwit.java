@@ -71,7 +71,6 @@ public class TwitupListTwit extends JPanel implements IViewObservable<IListTwitO
         c.gridwidth = 2;
         c.gridx = 0;
 
-        System.out.println(this.twitController);
         for (Twit twit : this.list_twit_filtered) {
             c.gridy++;
             this.add(new JSeparator(), c);
@@ -108,7 +107,7 @@ public class TwitupListTwit extends JPanel implements IViewObservable<IListTwitO
                 this.list_twit_filtered.add(twit);
             }
         }
-        
+
         this.list_twit_filtered.addAll(this.observer.getUserTwits(jtfSearch.getText()));
 
         this.initGUI();

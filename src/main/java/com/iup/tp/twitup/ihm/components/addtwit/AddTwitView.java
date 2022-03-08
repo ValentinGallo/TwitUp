@@ -36,22 +36,27 @@ public class AddTwitView extends JPanel implements IViewObservable<IAddTwitObser
         GridBagConstraints c = new GridBagConstraints();
         this.setBackground(Color.ORANGE);
 
-        jtfTwitContent.setFont(new Font("Roboto", Font.BOLD, 12));
+        JLabel jlblTitle = new JLabel("Poster un twit");
+        jlblTitle.setHorizontalAlignment(SwingConstants.CENTER);
+        jlblTitle.setFont(new Font("Roboto", Font.BOLD, 12));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
+        this.add(jlblTitle, c);
+
+        jtfTwitContent.setFont(new Font("Roboto", Font.BOLD, 12));
+        c.gridy++;
         this.add(jtfTwitContent, c);
 
-        c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
-        c.gridy = 1;
+        c.gridy++;
         jlblStatus.setForeground(Color.RED);
         jlblStatus.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(jlblStatus, c);
 
 
         c.gridx = 0;
-        c.gridy = 2;
+        c.gridy++;
 
         jbtTwit.addActionListener(new ActionListener() {
             @Override
