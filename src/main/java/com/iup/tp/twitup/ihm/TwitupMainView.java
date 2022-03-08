@@ -133,15 +133,16 @@ public class TwitupMainView extends JFrame implements IViewObservable<IMainObers
         }
         menuBar.add(jMenuCompte);
 
+        JMenuItem jMenuListTwit = new JMenuItem("Liste Twit");
+        jMenuListTwit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TwitupMainView.this.observer.goToListTwitPage();
+            }
+        });
+        menuBar.add(jMenuListTwit);
+
         if (user != null) {
-            JMenuItem jMenuListTwit = new JMenuItem("Liste Twit");
-            jMenuListTwit.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    TwitupMainView.this.observer.goToListTwitPage();
-                }
-            });
-            menuBar.add(jMenuListTwit);
 
             JMenuItem jmenuListUser = new JMenuItem("Liste Users");
             jmenuListUser.addActionListener(new ActionListener() {

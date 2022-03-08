@@ -189,9 +189,8 @@ public class Twitup implements IMainOberserver {
         mainTrayIcon.setImageAutoSize(true);
         try {
             mainTray.add(mainTrayIcon);
-            mainTrayIcon.displayMessage("TwitUp", twitUser.getUserTag() + " vient de poster un Twit", TrayIcon.MessageType.);
-        }
-        catch (Exception e) {
+            mainTrayIcon.displayMessage("TwitUp", twitUser.getUserTag() + " vient de poster un Twit", TrayIcon.MessageType.NONE);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -252,14 +251,14 @@ public class Twitup implements IMainOberserver {
 
     @Override
     public void notifyTwitAdded(Twit addedTwit) {
-        if(this.currentUser != null) {
-            if(this.currentUser.isFollowing(addedTwit.getTwiter())) {
+        if (this.currentUser != null) {
+            if (this.currentUser.isFollowing(addedTwit.getTwiter())) {
                 if (SystemTray.isSupported()) {
-                    try{
+                    try {
                         this.displayTray(addedTwit.getTwiter());
-                    }catch(AWTException ex){
+                    } catch (AWTException ex) {
 
-                    }catch(MalformedURLException ex){
+                    } catch (MalformedURLException ex) {
 
                     }
                 } else {
