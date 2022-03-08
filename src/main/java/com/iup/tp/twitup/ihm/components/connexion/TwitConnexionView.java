@@ -3,6 +3,7 @@ package com.iup.tp.twitup.ihm.components.connexion;
 import com.iup.tp.twitup.ihm.IViewObservable;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,23 +37,43 @@ public class TwitConnexionView extends JPanel implements IViewObservable<IConnex
      * Initialisation de l'IHM
      */
     protected void initGUI() {
-        this.setLayout(new GridLayout(6, 1));
+        this.setBorder(new EmptyBorder(5, 5, 5, 5));
+        this.setBackground(Color.ORANGE);
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
 
-        this.add(jlblUsername);
-        this.add(jtfUsername);
-        this.add(jlblPassword);
-        this.add(jpfPassword);
+        JLabel jlblTitle = new JLabel("Connexion");
+        jlblTitle.setHorizontalAlignment(SwingConstants.CENTER);
+        jlblTitle.setFont(new Font("Roboto", Font.BOLD, 12));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridwidth = 2;
+        c.gridy = 0;
+        this.add(jlblTitle, c);
 
-
-        JPanel buttons = new JPanel(new GridLayout(1, 2));
-        buttons.add(jbtCancel);
-        buttons.add(jbtOk);
-
-        this.add(buttons, BorderLayout.CENTER);
+        c.gridwidth = 1;
+        c.gridy++;
+        this.add(jlblUsername, c);
+        c.gridx++;
+        this.add(jtfUsername, c);
+        c.gridx = 0;
+        c.gridy++;
+        this.add(jlblPassword, c);
+        c.gridx++;
+        this.add(jpfPassword, c);
+        c.gridx = 0;
+        c.gridwidth = 2;
+        c.gridy++;
+        this.add(jlblStatus, c);
+        c.gridy++;
+        c.gridwidth = 1;
+        this.add(jbtCancel, c);
+        c.gridx++;
+        this.add(jbtOk, c);
 
         jlblStatus.setForeground(Color.RED);
         jlblStatus.setHorizontalAlignment(SwingConstants.CENTER);
-        this.add(jlblStatus);
+
 
         jbtOk.addActionListener(new ActionListener() {
             @Override

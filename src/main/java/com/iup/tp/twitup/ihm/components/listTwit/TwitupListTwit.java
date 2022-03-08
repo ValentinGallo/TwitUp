@@ -40,7 +40,6 @@ public class TwitupListTwit extends JPanel implements IViewObservable<IListTwitO
         this.setBorder(new EmptyBorder(5, 5, 5, 5));
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-        //this.setPreferredSize(new Dimension(200, 100));
 
 
         JLabel jlblTitle = new JLabel("Liste des Twit");

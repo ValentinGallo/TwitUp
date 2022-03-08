@@ -3,6 +3,7 @@ package com.iup.tp.twitup.ihm.components.inscription;
 import com.iup.tp.twitup.ihm.IViewObservable;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,18 +50,40 @@ public class TwitupCreateAccount extends JPanel implements IViewObservable<ICrea
      * Initialisation de l'IHM
      */
     protected void initGUI() {
-        this.setLayout(new GridLayout(5, 1));
+        this.setBorder(new EmptyBorder(5, 5, 5, 5));
+        this.setBackground(Color.ORANGE);
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
 
+
+        JLabel jlblTitle = new JLabel("Liste des Twit");
+        jlblTitle.setHorizontalAlignment(SwingConstants.CENTER);
+        jlblTitle.setFont(new Font("Roboto", Font.BOLD, 12));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridwidth = 2;
+        c.gridy = 0;
+        this.add(jlblTitle, c);
+
+        c.gridwidth = 1;
         JLabel jlblNom = new JLabel("nom");
+        c.gridy++;
+        this.add(jlblNom, c);
         this.nom = new JTextField();
-        this.add(jlblNom);
-        this.add(nom);
+        c.gridx++;
+        this.add(nom, c);
         JLabel jlblTag = new JLabel("tag");
+        c.gridy++;
+        c.gridx = 0;
+        this.add(jlblTag, c);
         this.tag = new JTextField();
-        this.add(jlblTag);
-        this.add(tag);
+        c.gridx++;
+        this.add(tag, c);
         JLabel jlblAvatar = new JLabel("avatar");
-        JButton avatarBtn = new JButton();
+        c.gridy++;
+        c.gridx = 0;
+        this.add(jlblAvatar, c);
+        JButton avatarBtn = new JButton("Choisir");
         avatarBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -74,16 +97,23 @@ public class TwitupCreateAccount extends JPanel implements IViewObservable<ICrea
             }
         });
 
-        this.add(jlblAvatar);
-        this.add(avatarBtn);
+        c.gridx++;
+        this.add(avatarBtn, c);
+
         JLabel jlblMdp = new JLabel("mot de passe");
+        c.gridy++;
+        c.gridx = 0;
+        this.add(jlblMdp, c);
+
         this.password = new JPasswordField();
-        this.add(jlblMdp);
-        this.add(password);
+        c.gridx++;
+        this.add(password, c);
 
         jlblStatus = new JLabel("");
         jlblStatus.setForeground(Color.RED);
-        this.add(jlblStatus);
+        c.gridy++;
+        c.gridx = 0;
+        this.add(jlblStatus, c);
 
         JButton btn = new JButton("Créer un compte");
         btn.addActionListener(new ActionListener() {
@@ -92,9 +122,9 @@ public class TwitupCreateAccount extends JPanel implements IViewObservable<ICrea
                 TwitupCreateAccount.this.createAccount();
             }
         });
-
-
-        this.add(btn);
+        c.gridx = 0;
+        c.gridwidth = 2;
+        this.add(btn, c);
 
     }
 
