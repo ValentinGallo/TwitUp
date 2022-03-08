@@ -1,0 +1,6 @@
+projectKey=twitup
+serverUrl=http://localhost:9000
+serverVersion=7.7.0.23042
+dashboardUrl=http://localhost:9000/dashboard?id=twitup
+ceTaskId=AX9p_AlpHIh6L30jiKjM
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AX9p_AlpHIh6L30jiKjM

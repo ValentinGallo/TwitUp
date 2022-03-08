@@ -18,7 +18,9 @@ import com.iup.tp.twitup.ihm.components.profil.TwitupProfil;
 import com.iup.tp.twitup.ihm.controller.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
+import java.net.MalformedURLException;
 
 /**
  * Classe principale l'application.
@@ -180,6 +182,20 @@ public class Twitup implements IMainOberserver {
         this.mMainView.repaint();
     }
 
+    public void displayTray(User twitUser) throws AWTException, MalformedURLException {
+        SystemTray mainTray = SystemTray.getSystemTray();
+        Image trayIconImage = Toolkit.getDefaultToolkit().getImage(twitUser.getAvatarPath());
+        TrayIcon mainTrayIcon = new TrayIcon(trayIconImage);
+        mainTrayIcon.setImageAutoSize(true);
+        try {
+            mainTray.add(mainTrayIcon);
+            mainTrayIcon.displayMessage("TwitUp", twitUser.getUserTag() + " vient de poster un Twit", TrayIcon.MessageType.);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void notifyDirectoryChanged(File file) {
         Twitup.this.initDirectory(file.getAbsolutePath());
@@ -238,7 +254,17 @@ public class Twitup implements IMainOberserver {
     public void notifyTwitAdded(Twit addedTwit) {
         if(this.currentUser != null) {
             if(this.currentUser.isFollowing(addedTwit.getTwiter())) {
-                this.mMainView.notifyTwitAddedByFollowedUser();
+                if (SystemTray.isSupported()) {
+                    try{
+                        this.displayTray(addedTwit.getTwiter());
+                    }catch(AWTException ex){
+
+                    }catch(MalformedURLException ex){
+
+                    }
+                } else {
+                    System.err.println("System tray not supported!");
+                }
             }
         }
     }
