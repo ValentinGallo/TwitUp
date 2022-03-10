@@ -1,7 +1,9 @@
 package com.iup.tp.twitup.ihm.components.twit;
 
 import com.iup.tp.twitup.datamodel.Twit;
+import com.iup.tp.twitup.ihm.IMainOberserver;
 import com.iup.tp.twitup.ihm.IViewObservable;
+import com.iup.tp.twitup.ihm.components.profil.TwitupProfil;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -14,10 +16,11 @@ public class TwitupTwit extends JPanel implements IViewObservable<ITwitObserver>
 
     protected Twit twit;
     protected ITwitObserver observer;
-    JButton jbtnFollow = new JButton();
+    protected IMainOberserver mainOberserver;
 
-    public TwitupTwit(Twit twit, ITwitObserver observe) {
+    public TwitupTwit(Twit twit, ITwitObserver observe, IMainOberserver mainOberserver) {
         this.twit = twit;
+        this.mainOberserver = mainOberserver;
         this.addObserver(observe);
         initGUI();
     }
@@ -58,39 +61,17 @@ public class TwitupTwit extends JPanel implements IViewObservable<ITwitObserver>
         c.gridy = 2;
         this.add(jlblText, c);
 
-        if (this.observer.getCurrentUser() != null) {
-            jlblText.setFont(new Font("Roboto", Font.ITALIC, 12));
-            c.gridx = 0;
-            c.gridy = 3;
-            c.gridwidth = 2;
-
-            this.initButtonFollow();
-            this.add(jbtnFollow, c);
-
-            this.revalidate();
-        }
-
-
-    }
-
-    public void initButtonFollow() {
-        if (TwitupTwit.this.observer.isAlreadyFollowedByUser(TwitupTwit.this.twit.getTwiter())) {
-            this.jbtnFollow.setText("Ne plus suivre");
-            jbtnFollow.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    TwitupTwit.this.observer.unfollowTwitAuthor(TwitupTwit.this.twit.getTwiter());
+        JButton profilBtn = new JButton("Consulter le profil");
+        profilBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                    TwitupTwit.this.mainOberserver.goToTwitterProfilePage(twit.getTwiter());
                 }
             });
-        } else {
-            jbtnFollow.setText("Suivre");
-            jbtnFollow.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    TwitupTwit.this.observer.followTwitAuthor(TwitupTwit.this.twit.getTwiter());
-                }
-            });
-        }
+        c.gridx = 0;
+        c.gridy = 3;
+        c.gridwidth = 2;
+        this.add(profilBtn, c);
     }
 
     @Override

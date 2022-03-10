@@ -1,6 +1,7 @@
 package com.iup.tp.twitup.ihm.components.listTwit;
 
 import com.iup.tp.twitup.datamodel.Twit;
+import com.iup.tp.twitup.ihm.IMainOberserver;
 import com.iup.tp.twitup.ihm.IViewObservable;
 import com.iup.tp.twitup.ihm.components.twit.TwitupTwit;
 import com.iup.tp.twitup.ihm.controller.TwitController;
@@ -21,12 +22,14 @@ public class TwitupListTwit extends JPanel implements IViewObservable<IListTwitO
     protected IListTwitObserver observer;
     protected Set<Twit> list_twit_filtered;
     protected TwitController twitController;
+    protected IMainOberserver mainOberserver;
     JTextField jtfSearch;
 
-    public TwitupListTwit(Set<Twit> list, TwitController twitController) {
+    public TwitupListTwit(Set<Twit> list, TwitController twitController, IMainOberserver mainOberserver) {
         this.list_twit = list;
         this.list_twit_filtered = list_twit;
         this.twitController = twitController;
+        this.mainOberserver = mainOberserver;
         jtfSearch = new JTextField();
         initGUI();
     }
@@ -75,7 +78,7 @@ public class TwitupListTwit extends JPanel implements IViewObservable<IListTwitO
             this.add(new JSeparator(), c);
             c.gridy++;
 
-            TwitupTwit twitView = new TwitupTwit(twit, this.twitController);
+            TwitupTwit twitView = new TwitupTwit(twit, this.twitController, this.mainOberserver);
             this.add(twitView, c);
 
         }

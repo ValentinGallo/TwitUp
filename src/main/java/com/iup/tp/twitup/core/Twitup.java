@@ -15,6 +15,7 @@ import com.iup.tp.twitup.ihm.components.inscription.TwitupCreateAccount;
 import com.iup.tp.twitup.ihm.components.listTwit.TwitupListTwit;
 import com.iup.tp.twitup.ihm.components.listUser.TwitupListUser;
 import com.iup.tp.twitup.ihm.components.profil.TwitupProfil;
+import com.iup.tp.twitup.ihm.components.twitterProfile.TwitUpTwitterProfile;
 import com.iup.tp.twitup.ihm.controller.*;
 
 import javax.swing.*;
@@ -238,7 +239,7 @@ public class Twitup implements IMainOberserver {
 
     @Override
     public void goToListTwitPage() {
-        TwitupListTwit twitupListTwit = new TwitupListTwit(this.mDatabase.getTwits(), new TwitController(this.mDatabase, this.mEntityManager, this.currentUser));
+        TwitupListTwit twitupListTwit = new TwitupListTwit(this.mDatabase.getTwits(), new TwitController(this.mDatabase, this.mEntityManager), this);
         this.changeCurrentPanelMainView(twitupListTwit);
         twitupListTwit.addObserver(new ListTwitController(this.mDatabase, this.mEntityManager));
     }
@@ -248,6 +249,12 @@ public class Twitup implements IMainOberserver {
         AddTwitView addTwitView = new AddTwitView();
         this.changeCurrentPanelMainView(addTwitView);
         addTwitView.addObserver(new AddTwitController(this.mDatabase, this.mEntityManager, this.currentUser));
+    }
+
+    @Override
+    public void goToTwitterProfilePage(User twitterUser) {
+        TwitUpTwitterProfile twitUpTwitterProfile = new TwitUpTwitterProfile(twitterUser, new TwitterProfileController(this.mDatabase, this.mEntityManager, this.currentUser));
+        this.changeCurrentPanelMainView(twitUpTwitterProfile);
     }
 
     @Override
