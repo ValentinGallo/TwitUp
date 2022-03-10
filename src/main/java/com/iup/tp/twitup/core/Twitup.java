@@ -280,6 +280,7 @@ public class Twitup implements IMainOberserver {
     public void notifyLoggedUser(User user) {
         this.currentUser = user;
         this.mMainView.initMenuBar(user);
+        this.goToListTwitPage();
     }
 
     @Override

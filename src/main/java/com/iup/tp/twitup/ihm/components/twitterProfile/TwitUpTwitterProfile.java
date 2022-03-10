@@ -54,14 +54,14 @@ public class TwitUpTwitterProfile extends JPanel implements IViewObservable<ITwi
         c.gridy = 1;
         this.add(jlblTag, c);
 
-        JLabel jlblNbTwits = new JLabel(this.observer.getNbTwitsPostedByUser(twitterUser) + " twits postées");
+        JLabel jlblNbTwits = new JLabel(this.observer.getNbTwitsPostedByUser(twitterUser) + " twit(s) postée(s)");
         c = new GridBagConstraints();
         c.fill = GridBagConstraints.WEST;
         c.gridx = 0;
         c.gridy = 2;
         this.add(jlblNbTwits, c);
 
-        JLabel jlblNbFollowers = new JLabel(this.observer.getNbFollowersByUser(twitterUser) + " followers");
+        JLabel jlblNbFollowers = new JLabel(this.observer.getNbFollowersByUser(twitterUser) + " follower(s)");
         c = new GridBagConstraints();
         c.fill = GridBagConstraints.WEST;
         c.gridx = 0;

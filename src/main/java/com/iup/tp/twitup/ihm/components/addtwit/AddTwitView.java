@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 
 public class AddTwitView extends JPanel implements IViewObservable<IAddTwitObserver> {
 
-    private final JTextField jtfTwitContent = new JTextField();
+    private final JTextArea jtfTwitContent = new JTextArea();
     private final JButton jbtTwit = new JButton("Twitter");
     private final JLabel jlblStatus = new JLabel(" ");
 
@@ -44,7 +44,9 @@ public class AddTwitView extends JPanel implements IViewObservable<IAddTwitObser
         c.gridy = 0;
         this.add(jlblTitle, c);
 
-        jtfTwitContent.setFont(new Font("Roboto", Font.BOLD, 12));
+        jtfTwitContent.setFont(new Font("Roboto", Font.CENTER_BASELINE, 11));
+        jtfTwitContent.setLineWrap(true);
+        c.gridx = 0;
         c.gridy++;
         this.add(jtfTwitContent, c);
 
