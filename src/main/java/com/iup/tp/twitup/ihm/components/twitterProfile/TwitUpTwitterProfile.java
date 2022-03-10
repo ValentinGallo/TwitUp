@@ -28,12 +28,13 @@ public class TwitUpTwitterProfile extends JPanel implements IViewObservable<ITwi
         this.setBorder(new EmptyBorder(5, 5, 5, 5));
         this.setBackground(Color.ORANGE);
         this.setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
+        GridBagConstraints c;
         //this.setPreferredSize(new Dimension(200, 100));
 
 
         JLabel jlblTitle = new JLabel("Profil de " + twitterUser.getName());
         jlblTitle.setFont(new Font("Roboto", Font.BOLD, 12));
+        c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
@@ -47,21 +48,31 @@ public class TwitUpTwitterProfile extends JPanel implements IViewObservable<ITwi
         Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
 
         jlblTag.setIcon(new ImageIcon(newimg));
+        c = new GridBagConstraints();
         c.fill = GridBagConstraints.CENTER;
         c.gridx = 0;
         c.gridy = 1;
         this.add(jlblTag, c);
 
         JLabel jlblNbTwits = new JLabel(this.observer.getNbTwitsPostedByUser(twitterUser) + " twits postées");
+        c = new GridBagConstraints();
         c.fill = GridBagConstraints.WEST;
         c.gridx = 0;
         c.gridy = 2;
         this.add(jlblNbTwits, c);
 
+        JLabel jlblNbFollowers = new JLabel(this.observer.getNbFollowersByUser(twitterUser) + " followers");
+        c = new GridBagConstraints();
+        c.fill = GridBagConstraints.WEST;
+        c.gridx = 0;
+        c.gridy = 4;
+        this.add(jlblNbFollowers, c);
+
         if(this.observer.getCurrentUser() != null) {
             this.initButtonFollow();
+            c = new GridBagConstraints();
             c.gridx = 0;
-            c.gridy = 4;
+            c.gridy = 6;
             c.gridwidth = 2;
             this.add(jbtnFollow, c);
         }

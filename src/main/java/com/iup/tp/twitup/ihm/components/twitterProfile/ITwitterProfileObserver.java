@@ -12,4 +12,6 @@ public interface ITwitterProfileObserver {
     User getCurrentUser();
 
     int getNbTwitsPostedByUser(User twitterUser);
+
+    int getNbFollowersByUser(User twitterUser);
 }

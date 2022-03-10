@@ -39,4 +39,9 @@ public class TwitterProfileController extends IController implements ITwitterPro
     public int getNbTwitsPostedByUser(User twitterUser) {
         return this.database.getUserTwits(twitterUser).size();
     }
+
+    @Override
+    public int getNbFollowersByUser(User twitterUser) {
+        return this.database.getFollowersCount(twitterUser);
+    }
 }
