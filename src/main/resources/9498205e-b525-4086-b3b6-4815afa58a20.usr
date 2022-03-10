@@ -4,6 +4,8 @@
     <UserTag>non</UserTag>
     <UserPassword>non</UserPassword>
     <Name>non</Name>
-    <AvatarPath>C:\Users\pierr\Pictures\3bf1edc2a8c8b4141b4c29f5bdbc22a4.jpg</AvatarPath>
+    <AvatarPath>C:\Users\pierr\Pictures\FondEcran.png</AvatarPath>
     <follows>oui</follows>
+    <follows>123</follows>
+    <follows>1234</follows>
 </ns2:userXml>

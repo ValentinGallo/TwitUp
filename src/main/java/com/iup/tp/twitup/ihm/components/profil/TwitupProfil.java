@@ -13,6 +13,7 @@ public class TwitupProfil extends JPanel implements IViewObservable<IProfilObser
 
     protected User user;
     protected IProfilObserver observer;
+    protected JLabel jlblStatus;
 
     public TwitupProfil(User user) {
         this.user = user;
@@ -71,7 +72,7 @@ public class TwitupProfil extends JPanel implements IViewObservable<IProfilObser
                 JFileChooser fileChooser = new JFileChooser();
                 switch (fileChooser.showOpenDialog(TwitupProfil.this)) {
                     case JFileChooser.APPROVE_OPTION:
-
+                        user.setAvatarPath(fileChooser.getSelectedFile().getAbsolutePath());
                         break;
                 }
             }
@@ -84,21 +85,35 @@ public class TwitupProfil extends JPanel implements IViewObservable<IProfilObser
 
         //MOT DE PASSE
         JLabel jlblMdp = new JLabel("Mot de passe :");
-        JPasswordField jtfieldPassword = new JPasswordField();
+        JPasswordField jtfieldPassword = new JPasswordField(user.getUserPassword());
         c.gridx = 0;
         c.gridy = 4;
         this.add(jlblMdp, c);
         c.gridx = 1;
         this.add(jtfieldPassword, c);
 
-        //BTN VALIDATE
-        JButton submitBtn = new JButton("Modifier");
         c.gridx = 0;
         c.gridy = 5;
+        c.gridwidth = 0;
+        jlblStatus = new JLabel("");
+        jlblStatus.setForeground(Color.GREEN);
+        this.add(jlblStatus, c);
+
+        //BTN VALIDATE
+        JButton submitBtn = new JButton("Modifier");
+        submitBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                user.setName(jtfieldNom.getText());
+                user.setUserPassword(new String(jtfieldPassword.getPassword()));
+                TwitupProfil.this.observer.modifyAccount(user);
+                TwitupProfil.this.jlblStatus.setText("Profil modifié");
+            }
+        });
+        c.gridx = 0;
+        c.gridy = 6;
         c.gridwidth = 2;
         this.add(submitBtn, c);
-
-
     }
 
     @Override

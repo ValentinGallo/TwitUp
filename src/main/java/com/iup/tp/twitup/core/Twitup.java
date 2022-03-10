@@ -190,7 +190,8 @@ public class Twitup implements IMainOberserver {
         try {
             mainTray.add(mainTrayIcon);
             mainTrayIcon.displayMessage("TwitUp", twitUser.getUserTag() + " vient de poster un Twit", TrayIcon.MessageType.NONE);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -14,6 +14,7 @@ public class TwitupTwit extends JPanel implements IViewObservable<ITwitObserver>
 
     protected Twit twit;
     protected ITwitObserver observer;
+    JButton jbtnFollow = new JButton();
 
     public TwitupTwit(Twit twit, ITwitObserver observe) {
         this.twit = twit;
@@ -58,39 +59,38 @@ public class TwitupTwit extends JPanel implements IViewObservable<ITwitObserver>
         this.add(jlblText, c);
 
         if (this.observer.getCurrentUser() != null) {
-            JButton jbtnFollow = new JButton();
             jlblText.setFont(new Font("Roboto", Font.ITALIC, 12));
             c.gridx = 0;
             c.gridy = 3;
             c.gridwidth = 2;
 
-            if (TwitupTwit.this.observer.isAlreadyFollowedByUser(TwitupTwit.this.twit.getTwiter())) {
-                jbtnFollow.setText("Ne plus suivre");
-                jbtnFollow.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        TwitupTwit.this.observer.unfollowTwitAuthor(TwitupTwit.this.twit.getTwiter());
-                        TwitupTwit.this.initGUI();
-                    }
-                });
-            } else {
-                jbtnFollow.setText("Suivre");
-                jbtnFollow.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        jbtnFollow.setText("Suivre");
-                        TwitupTwit.this.observer.followTwitAuthor(TwitupTwit.this.twit.getTwiter());
-                        TwitupTwit.this.initGUI();
-                    }
-                });
-            }
-
+            this.initButtonFollow();
             this.add(jbtnFollow, c);
 
             this.revalidate();
         }
 
 
+    }
+
+    public void initButtonFollow() {
+        if (TwitupTwit.this.observer.isAlreadyFollowedByUser(TwitupTwit.this.twit.getTwiter())) {
+            this.jbtnFollow.setText("Ne plus suivre");
+            jbtnFollow.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    TwitupTwit.this.observer.unfollowTwitAuthor(TwitupTwit.this.twit.getTwiter());
+                }
+            });
+        } else {
+            jbtnFollow.setText("Suivre");
+            jbtnFollow.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    TwitupTwit.this.observer.followTwitAuthor(TwitupTwit.this.twit.getTwiter());
+                }
+            });
+        }
     }
 
     @Override
