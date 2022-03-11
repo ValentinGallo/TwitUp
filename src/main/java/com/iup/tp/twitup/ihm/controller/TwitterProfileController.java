@@ -12,7 +12,8 @@ public class TwitterProfileController extends IController implements ITwitterPro
 
     public TwitterProfileController(IDatabase database, EntityManager entityManager, User currentUser, IMainOberserver mainController) {
         super(database, entityManager);
-        this.currentUser = currentUser;
+        if(currentUser != null) this.currentUser = new User(currentUser.getUuid(), currentUser.getUserTag(), currentUser.getUserPassword(), currentUser.getName(), currentUser.getFollows(), currentUser.getAvatarPath());
+        else this.currentUser = null;
         this.mainController = mainController;
     }
 
@@ -25,14 +26,12 @@ public class TwitterProfileController extends IController implements ITwitterPro
     public void followTwitAuthor(User twitUser) {
         this.currentUser.addFollowing(twitUser.getUserTag());
         this.entityManager.sendUser(this.currentUser);
-        this.mainController.goToTwitterProfilePage(twitUser.getUserTag());
     }
 
     @Override
     public void unfollowTwitAuthor(User twitUser) {
         this.currentUser.removeFollowing(twitUser.getUserTag());
         this.entityManager.sendUser(this.currentUser);
-        this.mainController.goToTwitterProfilePage(twitUser.getUserTag());
 
     }
 

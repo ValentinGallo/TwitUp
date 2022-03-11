@@ -308,18 +308,31 @@ public class Twitup implements IMainOberserver {
 
     @Override
     public void notifyUserModified(User modifiedUser) {
-        /*System.out.println("User modified");
-        System.out.println(this.currentUser.getFollows().size());
-        System.out.println(modifiedUser.getFollows().size());
+        System.out.println("User modified");
 
-        if(modifiedUser.getFollows().size() != this.currentUser.getFollows().size()) {
+        if(modifiedUser.getFollows().size() > this.currentUser.getFollows().size()) {
             Optional<String> userFollowed = modifiedUser.getFollows().stream()
                     .filter(element -> !currentUser.getFollows().contains(element))
                     .collect(Collectors.toList()).stream().findFirst();
 
-            if(userFollowed.isPresent()) this.goToTwitterProfilePage(userFollowed.get());
+            if(userFollowed.isPresent()) {
+                this.currentUser = modifiedUser;
+                this.goToTwitterProfilePage(userFollowed.get());
+            }
+        } else if(modifiedUser.getFollows().size() < this.currentUser.getFollows().size()) {
+            Optional<String> userFollowed = currentUser.getFollows().stream()
+                    .filter(element -> !modifiedUser.getFollows().contains(element))
+                    .collect(Collectors.toList()).stream().findFirst();
+
+            System.out.println(userFollowed);
+            if(userFollowed.isPresent()) {
+                this.currentUser = modifiedUser;
+                this.goToTwitterProfilePage(userFollowed.get());
+            }
         } else {
+            this.currentUser = modifiedUser;
+            this.mMainView.initMenuBar(this.currentUser);
             this.goToProfilPage();
-        }*/
+        }
     }
 }
