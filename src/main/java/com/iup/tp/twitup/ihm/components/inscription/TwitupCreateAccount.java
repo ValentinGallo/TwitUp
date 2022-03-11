@@ -39,8 +39,6 @@ public class TwitupCreateAccount extends JPanel implements IViewObservable<ICrea
             this.jlblStatus.setText("Le mot de passe n'est pas assez sécurisé");
         } else {
             observer.notifyCreateAccount(tTag, tPassword, tNom, new HashSet<>(), tAvatar);
-            jlblStatus.setForeground(Color.GREEN);
-            this.jlblStatus.setText("Compte créé");
         }
 
     }

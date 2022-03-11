@@ -291,6 +291,7 @@ public class Twitup implements IMainOberserver {
     @Override
     public void notifyUserAdded(User addedUser) {
         System.out.println("User added");
+        this.goToConnexionPage();
     }
 
     @Override
