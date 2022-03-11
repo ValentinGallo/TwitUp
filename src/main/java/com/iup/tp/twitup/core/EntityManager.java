@@ -390,4 +390,8 @@ public class EntityManager implements IWatchableDirectoryObserver {
     public boolean checkUser(String tag, String password) {
         return this.mDatabase.checkUser(tag, password);
     }
+
+    public User getUserFromTag(String tag) {
+        return this.mDatabase.getUserFromTag(tag);
+    }
 }

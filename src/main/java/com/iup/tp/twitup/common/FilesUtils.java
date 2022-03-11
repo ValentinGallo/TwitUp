@@ -29,7 +29,10 @@ public class FilesUtils {
 
 		// Si c'est bon, suppression de la source
 		if (isOk) {
-			sourceFile.delete();
+			if (!sourceFile.delete()) {
+				// Erreur lors de la suppression de la source
+			}
+
 		}
 
 		return isOk;
@@ -64,7 +67,7 @@ public class FilesUtils {
 			isOk = true;
 		} catch (Throwable t) {
 			System.err.println("Erreur lors de la copie du fichier '" + sourceFileName + "'");
-			t.printStackTrace();
+			System.err.println("Error : " + t);
 		} finally {
 			// Fermeture des flux
 			if (in != null) {

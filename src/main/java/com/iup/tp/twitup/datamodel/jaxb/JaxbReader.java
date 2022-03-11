@@ -69,7 +69,7 @@ public class JaxbReader {
 			object = unmarshaller.unmarshal(new FileReader(xmlFileName));
 		} catch (Throwable t) {
 			System.err.println("Erreur de chargement du fichier : '" + xmlFileName + "'");
-			t.printStackTrace();
+			System.err.println("Error : " + t);
 		}
 		return object;
 	}

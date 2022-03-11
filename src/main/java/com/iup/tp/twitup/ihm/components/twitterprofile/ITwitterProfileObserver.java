@@ -14,4 +14,6 @@ public interface ITwitterProfileObserver {
     int getNbTwitsPostedByUser(User twitterUser);
 
     int getNbFollowersByUser(User twitterUser);
+
+    User getUserFromTag(String tag);
 }

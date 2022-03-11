@@ -28,7 +28,7 @@ public class PropertiesManager {
 				properties.load(in);
 			} catch (Throwable t) {
 				System.out.println("Impossible de charger les configurations");
-				t.printStackTrace();
+				System.err.println("Error : " + t);
 			} finally {
 				if (in != null) {
 					try {
@@ -59,7 +59,7 @@ public class PropertiesManager {
 				properties.store(out, "Configuration de l'application twItUP");
 			} catch (Throwable t) {
 				System.err.println("Impossible d'enregistrer les configurations");
-				t.printStackTrace();
+				System.err.println("Error : " + t);
 			} finally {
 				if (out != null) {
 					try {

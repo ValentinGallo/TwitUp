@@ -13,9 +13,9 @@ public class TwitUpTwitterProfile extends JPanel implements IViewObservable<ITwi
     protected ITwitterProfileObserver observer;
     JButton jbtnFollow = new JButton();
 
-    public TwitUpTwitterProfile(User twitterUser, ITwitterProfileObserver observer) {
+    public TwitUpTwitterProfile(String twitterUserTag, ITwitterProfileObserver observer) {
         this.addObserver(observer);
-        this.twitterUser = twitterUser;
+        this.twitterUser = this.observer.getUserFromTag(twitterUserTag);
         initGUI();
     }
 

@@ -60,7 +60,7 @@ public class TwitupTwit extends JPanel implements IViewObservable<ITwitObserver>
         this.add(jlblText, c);
 
         JButton profilBtn = new JButton("Consulter le profil");
-        profilBtn.addActionListener(e -> TwitupTwit.this.mainOberserver.goToTwitterProfilePage(twit.getTwiter()));
+        profilBtn.addActionListener(e -> TwitupTwit.this.mainOberserver.goToTwitterProfilePage(twit.getTwiter().getUserTag()));
         c.gridx = 0;
         c.gridy = 3;
         c.gridwidth = 2;

@@ -22,5 +22,5 @@ public interface IMainOberserver extends IDatabaseObserver {
 
     void goToAddTwitPage();
 
-    void goToTwitterProfilePage(User twitterUser);
+    void goToTwitterProfilePage(String twitterUserTag);
 }

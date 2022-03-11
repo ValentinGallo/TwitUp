@@ -152,6 +152,7 @@ public class WatchableDirectory implements IWatchableDirectory {
 					startPolling();
 				} catch (InterruptedException e) {
 					System.err.println("Surveillance du répertoire interrompue.");
+					Thread.currentThread().interrupt();
 				}
 			}
 		});

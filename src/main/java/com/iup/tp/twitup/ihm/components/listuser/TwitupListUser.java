@@ -88,7 +88,7 @@ public class TwitupListUser extends JPanel implements IViewObservable<IListUserO
             this.add(jlblUser, c);
 
             JButton btnFollow = new JButton("Consulter le profil");
-            btnFollow.addActionListener(e -> TwitupListUser.this.mainOberserver.goToTwitterProfilePage(user));
+            btnFollow.addActionListener(e -> TwitupListUser.this.mainOberserver.goToTwitterProfilePage(user.getUserTag()));
             btnFollow.setFont(fontRoboto);
             c.gridx++;
             this.add(btnFollow, c);

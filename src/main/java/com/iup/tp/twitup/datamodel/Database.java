@@ -296,6 +296,14 @@ public class Database implements IDatabase {
 		return new User(Constants.UNKNONWN_USER_UUID, "<Inconnu>", "--", "<Inconnu>", new HashSet<String>(), "");
 	}
 
+	@Override
+	public User getUserFromTag(String tag) {
+		Optional<User> u = this.mUsers.stream().filter((user) -> user.getUserTag().equals(tag)).findFirst();
+
+		if (u.isPresent()) return u.get();
+		else return null;
+	}
+
 	/**
 	 * @{inheritDoc
 	 */

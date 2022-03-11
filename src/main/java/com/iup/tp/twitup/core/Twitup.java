@@ -19,9 +19,12 @@ import com.iup.tp.twitup.ihm.components.twitterprofile.TwitUpTwitterProfile;
 import com.iup.tp.twitup.ihm.controller.*;
 
 import javax.swing.*;
+import javax.swing.text.html.Option;
 import java.awt.*;
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Classe principale l'application.
@@ -245,8 +248,8 @@ public class Twitup implements IMainOberserver {
     }
 
     @Override
-    public void goToTwitterProfilePage(User twitterUser) {
-        TwitUpTwitterProfile twitUpTwitterProfile = new TwitUpTwitterProfile(twitterUser, new TwitterProfileController(this.mDatabase, this.mEntityManager, this.currentUser));
+    public void goToTwitterProfilePage(String twitterUserTag) {
+        TwitUpTwitterProfile twitUpTwitterProfile = new TwitUpTwitterProfile(twitterUserTag, new TwitterProfileController(this.mDatabase, this.mEntityManager, this.currentUser, this));
         this.changeCurrentPanelMainView(twitUpTwitterProfile);
     }
 
@@ -301,6 +304,18 @@ public class Twitup implements IMainOberserver {
 
     @Override
     public void notifyUserModified(User modifiedUser) {
-        System.out.println("User modified");
+        /*System.out.println("User modified");
+        System.out.println(this.currentUser.getFollows().size());
+        System.out.println(modifiedUser.getFollows().size());
+
+        if(modifiedUser.getFollows().size() != this.currentUser.getFollows().size()) {
+            Optional<String> userFollowed = modifiedUser.getFollows().stream()
+                    .filter(element -> !currentUser.getFollows().contains(element))
+                    .collect(Collectors.toList()).stream().findFirst();
+
+            if(userFollowed.isPresent()) this.goToTwitterProfilePage(userFollowed.get());
+        } else {
+            this.goToProfilPage();
+        }*/
     }
 }
