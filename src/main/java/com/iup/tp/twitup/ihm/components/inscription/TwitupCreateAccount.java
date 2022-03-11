@@ -4,6 +4,7 @@ import com.iup.tp.twitup.ihm.IViewObservable;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.util.HashSet;
 
@@ -83,6 +84,8 @@ public class TwitupCreateAccount extends JPanel implements IViewObservable<ICrea
         JButton avatarBtn = new JButton("Choisir");
         avatarBtn.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "png", "gif", "jpeg");
+            fileChooser.setFileFilter(filter);
             if (fileChooser.showOpenDialog(TwitupCreateAccount.this) == JFileChooser.APPROVE_OPTION) {
                 TwitupCreateAccount.this.avatar = fileChooser.getSelectedFile().toString();
                 avatarBtn.setText(fileChooser.getSelectedFile().getName());

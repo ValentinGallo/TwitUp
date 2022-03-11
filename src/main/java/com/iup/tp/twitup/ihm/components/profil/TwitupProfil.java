@@ -5,6 +5,7 @@ import com.iup.tp.twitup.ihm.IViewObservable;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 
 public class TwitupProfil extends JPanel implements IViewObservable<IProfilObserver> {
@@ -65,6 +66,8 @@ public class TwitupProfil extends JPanel implements IViewObservable<IProfilObser
         avatarBtn.setIcon(new ImageIcon(newimg));
         avatarBtn.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "png", "gif", "jpeg");
+            fileChooser.setFileFilter(filter);
             if (fileChooser.showOpenDialog(TwitupProfil.this) == JFileChooser.APPROVE_OPTION) {
                 user.setAvatarPath(fileChooser.getSelectedFile().getAbsolutePath());
             }
