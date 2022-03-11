@@ -22,7 +22,7 @@ public class CreateAccountController extends IController implements ICreateAccou
 
     @Override
     public void notifyCreateAccount(String tTag, String tPassword, String tNom, Set<String> follows, String tAvatar) {
-        User newUser = new User(UUID.randomUUID(), tTag, tPassword, tNom, new HashSet<String>(), tAvatar);
+        User newUser = new User(UUID.randomUUID(), tTag, tPassword, tNom, new HashSet<>(), tAvatar);
         this.entityManager.sendUser(newUser);
     }
 

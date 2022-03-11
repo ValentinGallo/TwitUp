@@ -6,8 +6,6 @@ import com.iup.tp.twitup.ihm.IViewObservable;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -19,6 +17,7 @@ public class TwitupListUser extends JPanel implements IViewObservable<IListUserO
     protected IListUserObserver observer;
     protected Set<User> list_user_filtered;
     JTextField jtfSearchUser;
+    Font font = new Font("Roboto", Font.BOLD, 12);
 
     public TwitupListUser(Set<User> list) {
         this.list_user = list;
@@ -33,12 +32,11 @@ public class TwitupListUser extends JPanel implements IViewObservable<IListUserO
         this.setBorder(new EmptyBorder(5, 5, 5, 5));
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-        //this.setPreferredSize(new Dimension(200, 100));
 
 
         JLabel jlblTitle = new JLabel("Liste des users");
         jlblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-        jlblTitle.setFont(new Font("Roboto", Font.BOLD, 12));
+        jlblTitle.setFont(font);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
@@ -46,19 +44,14 @@ public class TwitupListUser extends JPanel implements IViewObservable<IListUserO
         this.add(jlblTitle, c);
 
         jtfSearchUser = new JTextField();
-        jlblTitle.setFont(new Font("Roboto", Font.BOLD, 12));
+        jlblTitle.setFont(font);
         c.gridy++;
         this.add(jtfSearchUser, c);
 
         JButton jbtnSearch = new JButton("Rechercher");
-        jbtnSearch.setFont(new Font("Roboto", Font.BOLD, 12));
+        jbtnSearch.setFont(font);
         c.gridy++;
-        jbtnSearch.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                TwitupListUser.this.search();
-            }
-        });
+        jbtnSearch.addActionListener(e -> TwitupListUser.this.search());
         this.add(jbtnSearch, c);
         this.setBackground(Color.ORANGE);
 
@@ -88,11 +81,11 @@ public class TwitupListUser extends JPanel implements IViewObservable<IListUserO
             c.gridy++;
 
             JLabel jlblUser = new JLabel(user.getName());
-            jlblUser.setFont(new Font("Roboto", Font.BOLD, 12));
+            jlblUser.setFont(font);
             this.add(jlblUser, c);
 
             JButton btnFollow = new JButton("Suivre");
-            btnFollow.setFont(new Font("Roboto", Font.BOLD, 12));
+            btnFollow.setFont(font);
             c.gridx++;
             this.add(btnFollow, c);
         }

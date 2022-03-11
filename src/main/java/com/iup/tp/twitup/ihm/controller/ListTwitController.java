@@ -22,6 +22,6 @@ public class ListTwitController extends IController implements IListTwitObserver
             }
         }
 
-        return new HashSet<Twit>();
+        return new HashSet<>();
     }
 }

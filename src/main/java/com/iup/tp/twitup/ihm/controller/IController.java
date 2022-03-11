@@ -7,7 +7,7 @@ public abstract class IController {
     public IDatabase database;
     public EntityManager entityManager;
 
-    public IController(IDatabase database, EntityManager entityManager) {
+    protected IController(IDatabase database, EntityManager entityManager) {
         this.database = database;
         this.entityManager = entityManager;
     }

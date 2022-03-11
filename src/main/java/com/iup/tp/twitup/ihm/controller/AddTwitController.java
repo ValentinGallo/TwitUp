@@ -21,7 +21,6 @@ public class AddTwitController extends IController implements IAddTwitObserver {
 
     @Override
     public void twit(String message) {
-        System.out.println(connectedUser);
         this.entityManager.sendTwit(new Twit(connectedUser, message));
     }
 }
