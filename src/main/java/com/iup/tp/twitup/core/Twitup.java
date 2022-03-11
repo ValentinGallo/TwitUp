@@ -98,13 +98,7 @@ public class Twitup implements IMainOberserver {
     protected void initLookAndFeel() {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (UnsupportedLookAndFeelException e) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
 
@@ -284,26 +278,26 @@ public class Twitup implements IMainOberserver {
 
     @Override
     public void notifyTwitDeleted(Twit deletedTwit) {
-
+        // TODO document why this method is empty
     }
 
     @Override
     public void notifyTwitModified(Twit modifiedTwit) {
-
+        // TODO document why this method is empty
     }
 
     @Override
     public void notifyUserAdded(User addedUser) {
-
+        // TODO document why this method is empty
     }
 
     @Override
     public void notifyUserDeleted(User deletedUser) {
-
+        // TODO document why this method is empty
     }
 
     @Override
     public void notifyUserModified(User modifiedUser) {
-
+        // TODO document why this method is empty
     }
 }
