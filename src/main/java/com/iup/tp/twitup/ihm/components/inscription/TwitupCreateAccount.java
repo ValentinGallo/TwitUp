@@ -113,6 +113,7 @@ public class TwitupCreateAccount extends JPanel implements IViewObservable<ICrea
         JButton btn = new JButton("Créer un compte");
         btn.addActionListener(e -> TwitupCreateAccount.this.createAccount());
         c.gridx = 0;
+        c.gridy++;
         c.gridwidth = 2;
         this.add(btn, c);
 
