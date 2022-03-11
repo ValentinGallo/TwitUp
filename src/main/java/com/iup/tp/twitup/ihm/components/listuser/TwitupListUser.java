@@ -1,6 +1,7 @@
 package com.iup.tp.twitup.ihm.components.listuser;
 
 import com.iup.tp.twitup.datamodel.User;
+import com.iup.tp.twitup.ihm.IMainOberserver;
 import com.iup.tp.twitup.ihm.IViewObservable;
 
 import javax.swing.*;
@@ -16,12 +17,14 @@ public class TwitupListUser extends JPanel implements IViewObservable<IListUserO
     protected Set<User> listUser;
     protected IListUserObserver observer;
     protected Set<User> listUserFiltered;
+    protected IMainOberserver mainOberserver;
     JTextField jtfSearchUser;
     Font fontRoboto = new Font("Roboto", Font.BOLD, 12);
 
-    public TwitupListUser(Set<User> list) {
+    public TwitupListUser(Set<User> list, IMainOberserver mainOberserver) {
         this.listUser = list;
         this.listUserFiltered = listUser;
+        this.mainOberserver = mainOberserver;
         initGUI();
     }
 
@@ -84,7 +87,8 @@ public class TwitupListUser extends JPanel implements IViewObservable<IListUserO
             jlblUser.setFont(fontRoboto);
             this.add(jlblUser, c);
 
-            JButton btnFollow = new JButton("Suivre");
+            JButton btnFollow = new JButton("Consulter le profil");
+            btnFollow.addActionListener(e -> TwitupListUser.this.mainOberserver.goToTwitterProfilePage(user));
             btnFollow.setFont(fontRoboto);
             c.gridx++;
             this.add(btnFollow, c);

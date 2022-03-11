@@ -12,10 +12,10 @@ import com.iup.tp.twitup.ihm.TwitupMock;
 import com.iup.tp.twitup.ihm.components.addtwit.AddTwitView;
 import com.iup.tp.twitup.ihm.components.connexion.TwitConnexionView;
 import com.iup.tp.twitup.ihm.components.inscription.TwitupCreateAccount;
+import com.iup.tp.twitup.ihm.components.listtwit.TwitupListTwit;
 import com.iup.tp.twitup.ihm.components.listuser.TwitupListUser;
 import com.iup.tp.twitup.ihm.components.profil.TwitupProfil;
 import com.iup.tp.twitup.ihm.components.twitterprofile.TwitUpTwitterProfile;
-import com.iup.tp.twitup.ihm.components.listtwit.TwitupListTwit;
 import com.iup.tp.twitup.ihm.controller.*;
 
 import javax.swing.*;
@@ -225,7 +225,7 @@ public class Twitup implements IMainOberserver {
 
     @Override
     public void goToListUserPage() {
-        TwitupListUser twitupListUser = new TwitupListUser(this.mDatabase.getUsers());
+        TwitupListUser twitupListUser = new TwitupListUser(this.mDatabase.getUsers(), this);
         this.changeCurrentPanelMainView(twitupListUser);
         twitupListUser.addObserver(new ListUserController(this.mDatabase, this.mEntityManager));
     }
