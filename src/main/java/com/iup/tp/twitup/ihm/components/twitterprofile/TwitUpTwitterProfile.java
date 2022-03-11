@@ -1,4 +1,4 @@
-package com.iup.tp.twitup.ihm.components.twitterProfile;
+package com.iup.tp.twitup.ihm.components.twitterprofile;
 
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.IViewObservable;
@@ -6,8 +6,6 @@ import com.iup.tp.twitup.ihm.IViewObservable;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class TwitUpTwitterProfile extends JPanel implements IViewObservable<ITwitterProfileObserver> {
 
@@ -29,7 +27,6 @@ public class TwitUpTwitterProfile extends JPanel implements IViewObservable<ITwi
         this.setBackground(Color.ORANGE);
         this.setLayout(new GridBagLayout());
         GridBagConstraints c;
-        //this.setPreferredSize(new Dimension(200, 100));
 
 
         JLabel jlblTitle = new JLabel("Profil de " + twitterUser.getName());
@@ -68,7 +65,7 @@ public class TwitUpTwitterProfile extends JPanel implements IViewObservable<ITwi
         c.gridy = 4;
         this.add(jlblNbFollowers, c);
 
-        if(this.observer.getCurrentUser() != null) {
+        if (this.observer.getCurrentUser() != null) {
             this.initButtonFollow();
             c = new GridBagConstraints();
             c.gridx = 0;
@@ -81,20 +78,10 @@ public class TwitUpTwitterProfile extends JPanel implements IViewObservable<ITwi
     public void initButtonFollow() {
         if (TwitUpTwitterProfile.this.observer.isAlreadyFollowedByUser(TwitUpTwitterProfile.this.twitterUser)) {
             this.jbtnFollow.setText("Ne plus suivre");
-            jbtnFollow.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    TwitUpTwitterProfile.this.observer.unfollowTwitAuthor(TwitUpTwitterProfile.this.twitterUser);
-                }
-            });
+            jbtnFollow.addActionListener(e -> TwitUpTwitterProfile.this.observer.unfollowTwitAuthor(TwitUpTwitterProfile.this.twitterUser));
         } else {
             jbtnFollow.setText("Suivre");
-            jbtnFollow.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    TwitUpTwitterProfile.this.observer.followTwitAuthor(TwitUpTwitterProfile.this.twitterUser);
-                }
-            });
+            jbtnFollow.addActionListener(e -> TwitUpTwitterProfile.this.observer.followTwitAuthor(TwitUpTwitterProfile.this.twitterUser));
         }
     }
 
@@ -105,6 +92,6 @@ public class TwitUpTwitterProfile extends JPanel implements IViewObservable<ITwi
 
     @Override
     public void deleteObserver(ITwitterProfileObserver observer) {
-
+        // TODO document why this method is empty
     }
 }

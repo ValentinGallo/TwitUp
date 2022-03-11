@@ -4,7 +4,7 @@ import com.iup.tp.twitup.core.EntityManager;
 import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.datamodel.Twit;
 import com.iup.tp.twitup.datamodel.User;
-import com.iup.tp.twitup.ihm.components.listTwit.IListTwitObserver;
+import com.iup.tp.twitup.ihm.components.listtwit.IListTwitObserver;
 
 import java.util.HashSet;
 import java.util.Set;

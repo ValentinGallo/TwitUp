@@ -1,4 +1,4 @@
-package com.iup.tp.twitup.ihm.components.listUser;
+package com.iup.tp.twitup.ihm.components.listuser;
 
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.IViewObservable;
@@ -13,15 +13,15 @@ import java.util.regex.Pattern;
 
 public class TwitupListUser extends JPanel implements IViewObservable<IListUserObserver> {
 
-    protected Set<User> list_user;
+    protected Set<User> listUser;
     protected IListUserObserver observer;
-    protected Set<User> list_user_filtered;
+    protected Set<User> listUserFiltered;
     JTextField jtfSearchUser;
-    Font font = new Font("Roboto", Font.BOLD, 12);
+    Font fontRoboto = new Font("Roboto", Font.BOLD, 12);
 
     public TwitupListUser(Set<User> list) {
-        this.list_user = list;
-        this.list_user_filtered = list_user;
+        this.listUser = list;
+        this.listUserFiltered = listUser;
         initGUI();
     }
 
@@ -36,7 +36,7 @@ public class TwitupListUser extends JPanel implements IViewObservable<IListUserO
 
         JLabel jlblTitle = new JLabel("Liste des users");
         jlblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-        jlblTitle.setFont(font);
+        jlblTitle.setFont(fontRoboto);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
@@ -44,12 +44,12 @@ public class TwitupListUser extends JPanel implements IViewObservable<IListUserO
         this.add(jlblTitle, c);
 
         jtfSearchUser = new JTextField();
-        jlblTitle.setFont(font);
+        jlblTitle.setFont(fontRoboto);
         c.gridy++;
         this.add(jtfSearchUser, c);
 
         JButton jbtnSearch = new JButton("Rechercher");
-        jbtnSearch.setFont(font);
+        jbtnSearch.setFont(fontRoboto);
         c.gridy++;
         jbtnSearch.addActionListener(e -> TwitupListUser.this.search());
         this.add(jbtnSearch, c);
@@ -65,14 +65,14 @@ public class TwitupListUser extends JPanel implements IViewObservable<IListUserO
 
     @Override
     public void deleteObserver(IListUserObserver observer) {
-
+        // TODO document why this method is empty
     }
 
     public void loadUsers() {
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridy = 2;
-        for (User user : this.list_user_filtered) {
+        for (User user : this.listUserFiltered) {
             c.gridx = 0;
             c.gridy++;
             c.gridwidth = 2;
@@ -81,11 +81,11 @@ public class TwitupListUser extends JPanel implements IViewObservable<IListUserO
             c.gridy++;
 
             JLabel jlblUser = new JLabel(user.getName());
-            jlblUser.setFont(font);
+            jlblUser.setFont(fontRoboto);
             this.add(jlblUser, c);
 
             JButton btnFollow = new JButton("Suivre");
-            btnFollow.setFont(font);
+            btnFollow.setFont(fontRoboto);
             c.gridx++;
             this.add(btnFollow, c);
         }
@@ -95,16 +95,16 @@ public class TwitupListUser extends JPanel implements IViewObservable<IListUserO
     public void search() {
         Pattern pattern = Pattern.compile(jtfSearchUser.getText());
 
-        this.list_user_filtered = new HashSet<User>();
+        this.listUserFiltered = new HashSet<User>();
 
-        for (User user : this.list_user) {
+        for (User user : this.listUser) {
             if (("@" + user.getUserTag()).equals(jtfSearchUser.getText())) {
-                this.list_user_filtered.add(user);
+                this.listUserFiltered.add(user);
                 break;
             }
             Matcher matcher = pattern.matcher(user.getName());
             while (matcher.find()) {
-                this.list_user_filtered.add(user);
+                this.listUserFiltered.add(user);
             }
 
         }

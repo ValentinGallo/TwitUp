@@ -5,13 +5,12 @@ import com.iup.tp.twitup.ihm.IViewObservable;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashSet;
 
 public class TwitupCreateAccount extends JPanel implements IViewObservable<ICreateAccountObserver> {
 
-    protected JTextField nom, tag;
+    protected JTextField nom;
+    protected JTextField tag;
     protected String avatar;
     protected JPasswordField password;
     protected JLabel jlblStatus;
@@ -39,7 +38,7 @@ public class TwitupCreateAccount extends JPanel implements IViewObservable<ICrea
         } else if (!observer.isPasswordValid(tPassword)) {
             this.jlblStatus.setText("Le mot de passe n'est pas assez sécurisé");
         } else {
-            observer.notifyCreateAccount(tTag, tPassword, tNom, new HashSet<String>(), tAvatar);
+            observer.notifyCreateAccount(tTag, tPassword, tNom, new HashSet<>(), tAvatar);
             jlblStatus.setForeground(Color.GREEN);
             this.jlblStatus.setText("Compte créé");
         }
@@ -84,16 +83,11 @@ public class TwitupCreateAccount extends JPanel implements IViewObservable<ICrea
         c.gridx = 0;
         this.add(jlblAvatar, c);
         JButton avatarBtn = new JButton("Choisir");
-        avatarBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
-                switch (fileChooser.showOpenDialog(TwitupCreateAccount.this)) {
-                    case JFileChooser.APPROVE_OPTION:
-                        TwitupCreateAccount.this.avatar = fileChooser.getSelectedFile().toString();
-                        avatarBtn.setText(fileChooser.getSelectedFile().getName());
-                        break;
-                }
+        avatarBtn.addActionListener(e -> {
+            JFileChooser fileChooser = new JFileChooser();
+            if (fileChooser.showOpenDialog(TwitupCreateAccount.this) == JFileChooser.APPROVE_OPTION) {
+                TwitupCreateAccount.this.avatar = fileChooser.getSelectedFile().toString();
+                avatarBtn.setText(fileChooser.getSelectedFile().getName());
             }
         });
 
@@ -116,12 +110,7 @@ public class TwitupCreateAccount extends JPanel implements IViewObservable<ICrea
         this.add(jlblStatus, c);
 
         JButton btn = new JButton("Créer un compte");
-        btn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                TwitupCreateAccount.this.createAccount();
-            }
-        });
+        btn.addActionListener(e -> TwitupCreateAccount.this.createAccount());
         c.gridx = 0;
         c.gridwidth = 2;
         this.add(btn, c);
@@ -135,6 +124,6 @@ public class TwitupCreateAccount extends JPanel implements IViewObservable<ICrea
 
     @Override
     public void deleteObserver(ICreateAccountObserver observer) {
-
+        // TODO document why this method is empty
     }
 }

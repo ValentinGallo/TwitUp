@@ -6,8 +6,6 @@ import com.iup.tp.twitup.ihm.IViewObservable;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class TwitupProfil extends JPanel implements IViewObservable<IProfilObserver> {
 
@@ -28,7 +26,6 @@ public class TwitupProfil extends JPanel implements IViewObservable<IProfilObser
         this.setBackground(Color.ORANGE);
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-        //this.setPreferredSize(new Dimension(200, 100));
 
 
         JLabel jlblTitle = new JLabel("Mon profil");
@@ -66,15 +63,10 @@ public class TwitupProfil extends JPanel implements IViewObservable<IProfilObser
         Image image = imageIcon.getImage(); // transform it
         Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
         avatarBtn.setIcon(new ImageIcon(newimg));
-        avatarBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
-                switch (fileChooser.showOpenDialog(TwitupProfil.this)) {
-                    case JFileChooser.APPROVE_OPTION:
-                        user.setAvatarPath(fileChooser.getSelectedFile().getAbsolutePath());
-                        break;
-                }
+        avatarBtn.addActionListener(e -> {
+            JFileChooser fileChooser = new JFileChooser();
+            if (fileChooser.showOpenDialog(TwitupProfil.this) == JFileChooser.APPROVE_OPTION) {
+                user.setAvatarPath(fileChooser.getSelectedFile().getAbsolutePath());
             }
         });
         c.gridx = 0;
@@ -101,14 +93,11 @@ public class TwitupProfil extends JPanel implements IViewObservable<IProfilObser
 
         //BTN VALIDATE
         JButton submitBtn = new JButton("Modifier");
-        submitBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                user.setName(jtfieldNom.getText());
-                user.setUserPassword(new String(jtfieldPassword.getPassword()));
-                TwitupProfil.this.observer.modifyAccount(user);
-                TwitupProfil.this.jlblStatus.setText("Profil modifié");
-            }
+        submitBtn.addActionListener(e -> {
+            user.setName(jtfieldNom.getText());
+            user.setUserPassword(new String(jtfieldPassword.getPassword()));
+            TwitupProfil.this.observer.modifyAccount(user);
+            TwitupProfil.this.jlblStatus.setText("Profil modifié");
         });
         c.gridx = 0;
         c.gridy = 6;
@@ -123,6 +112,6 @@ public class TwitupProfil extends JPanel implements IViewObservable<IProfilObser
 
     @Override
     public void deleteObserver(IProfilObserver observer) {
-
+        // TODO document why this method is empty
     }
 }

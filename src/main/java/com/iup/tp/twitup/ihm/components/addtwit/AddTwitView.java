@@ -5,8 +5,6 @@ import com.iup.tp.twitup.ihm.IViewObservable;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class AddTwitView extends JPanel implements IViewObservable<IAddTwitObserver> {
 
@@ -60,18 +58,15 @@ public class AddTwitView extends JPanel implements IViewObservable<IAddTwitObser
         c.gridx = 0;
         c.gridy++;
 
-        jbtTwit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (AddTwitView.this.observer.isTwitOk(jtfTwitContent.getText())) {
-                    AddTwitView.this.observer.twit(jtfTwitContent.getText());
-                    jtfTwitContent.setText("");
-                    jlblStatus.setForeground(Color.GREEN);
-                    jlblStatus.setText("Votre Twit a été posté");
-                } else {
-                    jlblStatus.setForeground(Color.RED);
-                    jlblStatus.setText("Votre message fait plus de 250 caractères");
-                }
+        jbtTwit.addActionListener(e -> {
+            if (AddTwitView.this.observer.isTwitOk(jtfTwitContent.getText())) {
+                AddTwitView.this.observer.twit(jtfTwitContent.getText());
+                jtfTwitContent.setText("");
+                jlblStatus.setForeground(Color.GREEN);
+                jlblStatus.setText("Votre Twit a été posté");
+            } else {
+                jlblStatus.setForeground(Color.RED);
+                jlblStatus.setText("Votre message fait plus de 250 caractères");
             }
         });
 
@@ -85,6 +80,6 @@ public class AddTwitView extends JPanel implements IViewObservable<IAddTwitObser
 
     @Override
     public void deleteObserver(IAddTwitObserver observer) {
-
+        // TODO document why this method is empty
     }
 }

@@ -3,13 +3,10 @@ package com.iup.tp.twitup.ihm.components.twit;
 import com.iup.tp.twitup.datamodel.Twit;
 import com.iup.tp.twitup.ihm.IMainOberserver;
 import com.iup.tp.twitup.ihm.IViewObservable;
-import com.iup.tp.twitup.ihm.components.profil.TwitupProfil;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Date;
 
 public class TwitupTwit extends JPanel implements IViewObservable<ITwitObserver> {
@@ -29,6 +26,7 @@ public class TwitupTwit extends JPanel implements IViewObservable<ITwitObserver>
      * Initialisation de l'IHM
      */
     protected void initGUI() {
+        Font font = new Font("Roboto", Font.BOLD, 12);
         this.removeAll();
 
         this.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -39,7 +37,7 @@ public class TwitupTwit extends JPanel implements IViewObservable<ITwitObserver>
 
 
         JLabel jlblTitle = new JLabel(this.twit.getTwiter().getName() + " @" + this.twit.getTwiter().getUserTag());
-        jlblTitle.setFont(new Font("Roboto", Font.BOLD, 12));
+        jlblTitle.setFont(font);
         ImageIcon imageIcon = new ImageIcon(this.twit.getTwiter().getAvatarPath()); // load the image to a imageIcon
         Image image = imageIcon.getImage(); // transform it
         Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
@@ -50,24 +48,19 @@ public class TwitupTwit extends JPanel implements IViewObservable<ITwitObserver>
         this.add(jlblTitle, c);
 
         JLabel jlblDate = new JLabel(new Date(this.twit.getEmissionDate()).toString(), SwingConstants.RIGHT);
-        jlblDate.setFont(new Font("Roboto", 0, 12));
+        jlblDate.setFont(font);
         c.gridx = 1;
         c.gridy = 0;
         this.add(jlblDate, c);
 
         JLabel jlblText = new JLabel(this.twit.getText(), SwingConstants.CENTER);
-        jlblText.setFont(new Font("Roboto", Font.ITALIC, 12));
+        jlblText.setFont(font);
         c.gridx = 0;
         c.gridy = 2;
         this.add(jlblText, c);
 
         JButton profilBtn = new JButton("Consulter le profil");
-        profilBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                    TwitupTwit.this.mainOberserver.goToTwitterProfilePage(twit.getTwiter());
-                }
-            });
+        profilBtn.addActionListener(e -> TwitupTwit.this.mainOberserver.goToTwitterProfilePage(twit.getTwiter()));
         c.gridx = 0;
         c.gridy = 3;
         c.gridwidth = 2;

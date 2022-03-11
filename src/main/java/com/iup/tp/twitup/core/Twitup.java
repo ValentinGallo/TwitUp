@@ -12,10 +12,10 @@ import com.iup.tp.twitup.ihm.TwitupMock;
 import com.iup.tp.twitup.ihm.components.addtwit.AddTwitView;
 import com.iup.tp.twitup.ihm.components.connexion.TwitConnexionView;
 import com.iup.tp.twitup.ihm.components.inscription.TwitupCreateAccount;
-import com.iup.tp.twitup.ihm.components.listTwit.TwitupListTwit;
-import com.iup.tp.twitup.ihm.components.listUser.TwitupListUser;
+import com.iup.tp.twitup.ihm.components.listtwit.TwitupListTwit;
+import com.iup.tp.twitup.ihm.components.listuser.TwitupListUser;
 import com.iup.tp.twitup.ihm.components.profil.TwitupProfil;
-import com.iup.tp.twitup.ihm.components.twitterProfile.TwitUpTwitterProfile;
+import com.iup.tp.twitup.ihm.components.twitterprofile.TwitUpTwitterProfile;
 import com.iup.tp.twitup.ihm.controller.*;
 
 import javax.swing.*;
@@ -191,8 +191,7 @@ public class Twitup implements IMainOberserver {
         try {
             mainTray.add(mainTrayIcon);
             mainTrayIcon.displayMessage("TwitUp", twitUser.getUserTag() + " vient de poster un Twit", TrayIcon.MessageType.NONE);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

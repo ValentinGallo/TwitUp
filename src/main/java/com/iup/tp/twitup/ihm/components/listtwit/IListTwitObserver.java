@@ -1,4 +1,4 @@
-package com.iup.tp.twitup.ihm.components.listTwit;
+package com.iup.tp.twitup.ihm.components.listtwit;
 
 import com.iup.tp.twitup.datamodel.Twit;
 

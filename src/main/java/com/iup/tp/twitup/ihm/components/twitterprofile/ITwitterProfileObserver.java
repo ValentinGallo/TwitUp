@@ -1,4 +1,4 @@
-package com.iup.tp.twitup.ihm.components.twitterProfile;
+package com.iup.tp.twitup.ihm.components.twitterprofile;
 
 import com.iup.tp.twitup.datamodel.User;
 

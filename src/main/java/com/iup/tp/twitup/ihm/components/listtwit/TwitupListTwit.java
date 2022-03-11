@@ -1,4 +1,4 @@
-package com.iup.tp.twitup.ihm.components.listTwit;
+package com.iup.tp.twitup.ihm.components.listtwit;
 
 import com.iup.tp.twitup.datamodel.Twit;
 import com.iup.tp.twitup.ihm.IMainOberserver;
@@ -9,8 +9,6 @@ import com.iup.tp.twitup.ihm.controller.TwitController;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -18,16 +16,16 @@ import java.util.regex.Pattern;
 
 public class TwitupListTwit extends JPanel implements IViewObservable<IListTwitObserver> {
 
-    protected Set<Twit> list_twit;
+    protected Set<Twit> listTwit;
     protected IListTwitObserver observer;
-    protected Set<Twit> list_twit_filtered;
+    protected Set<Twit> listTwitFiltered;
     protected TwitController twitController;
     protected IMainOberserver mainOberserver;
     JTextField jtfSearch;
 
     public TwitupListTwit(Set<Twit> list, TwitController twitController, IMainOberserver mainOberserver) {
-        this.list_twit = list;
-        this.list_twit_filtered = list_twit;
+        this.listTwit = list;
+        this.listTwitFiltered = listTwit;
         this.twitController = twitController;
         this.mainOberserver = mainOberserver;
         jtfSearch = new JTextField();
@@ -38,6 +36,7 @@ public class TwitupListTwit extends JPanel implements IViewObservable<IListTwitO
      * Initialisation de l'IHM
      */
     protected void initGUI() {
+        Font fontRoboto = new Font("Roboto", Font.BOLD, 12);
         this.removeAll();
 
         this.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -47,25 +46,20 @@ public class TwitupListTwit extends JPanel implements IViewObservable<IListTwitO
 
         JLabel jlblTitle = new JLabel("Liste des Twit");
         jlblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-        jlblTitle.setFont(new Font("Roboto", Font.BOLD, 12));
+        jlblTitle.setFont(fontRoboto);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridwidth = 2;
         c.gridy = 0;
         this.add(jlblTitle, c);
 
-        jtfSearch.setFont(new Font("Roboto", Font.BOLD, 12));
+        jtfSearch.setFont(fontRoboto);
         c.gridy++;
         this.add(jtfSearch, c);
 
         JButton jbtnSearch = new JButton("Rechercher");
-        jbtnSearch.setFont(new Font("Roboto", Font.BOLD, 12));
-        jbtnSearch.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                TwitupListTwit.this.search();
-            }
-        });
+        jbtnSearch.setFont(fontRoboto);
+        jbtnSearch.addActionListener(e -> TwitupListTwit.this.search());
         c.gridy++;
         this.add(jbtnSearch, c);
 
@@ -73,7 +67,7 @@ public class TwitupListTwit extends JPanel implements IViewObservable<IListTwitO
         c.gridwidth = 2;
         c.gridx = 0;
 
-        for (Twit twit : this.list_twit_filtered) {
+        for (Twit twit : this.listTwitFiltered) {
             c.gridy++;
             this.add(new JSeparator(), c);
             c.gridy++;
@@ -95,22 +89,22 @@ public class TwitupListTwit extends JPanel implements IViewObservable<IListTwitO
 
     @Override
     public void deleteObserver(IListTwitObserver observer) {
-
+        // TODO document why this method is empty
     }
 
     public void search() {
         Pattern pattern = Pattern.compile(jtfSearch.getText());
 
-        this.list_twit_filtered = new HashSet<Twit>();
+        this.listTwitFiltered = new HashSet<Twit>();
 
-        for (Twit twit : this.list_twit) {
+        for (Twit twit : this.listTwit) {
             Matcher matcher = pattern.matcher(twit.getText());
             while (matcher.find()) {
-                this.list_twit_filtered.add(twit);
+                this.listTwitFiltered.add(twit);
             }
         }
 
-        this.list_twit_filtered.addAll(this.observer.getUserTwits(jtfSearch.getText()));
+        this.listTwitFiltered.addAll(this.observer.getUserTwits(jtfSearch.getText()));
 
         this.initGUI();
     }

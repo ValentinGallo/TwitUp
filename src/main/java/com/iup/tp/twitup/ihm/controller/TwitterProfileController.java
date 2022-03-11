@@ -3,7 +3,7 @@ package com.iup.tp.twitup.ihm.controller;
 import com.iup.tp.twitup.core.EntityManager;
 import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.datamodel.User;
-import com.iup.tp.twitup.ihm.components.twitterProfile.ITwitterProfileObserver;
+import com.iup.tp.twitup.ihm.components.twitterprofile.ITwitterProfileObserver;
 
 public class TwitterProfileController extends IController implements ITwitterProfileObserver {
     protected User currentUser;

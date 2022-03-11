@@ -5,8 +5,6 @@ import com.iup.tp.twitup.ihm.IViewObservable;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -75,24 +73,14 @@ public class TwitConnexionView extends JPanel implements IViewObservable<IConnex
         jlblStatus.setHorizontalAlignment(SwingConstants.CENTER);
 
 
-        jbtOk.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                TwitConnexionView.this.connexion();
-            }
-        });
+        jbtOk.addActionListener(e -> TwitConnexionView.this.connexion());
 
-        jbtCancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-            }
-        });
+        jbtCancel.addActionListener(e -> setVisible(false));
 
         KeyListener keyListener = new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-
+                // TODO document why this method is empty
             }
 
             public void keyPressed(KeyEvent keyEvent) {
@@ -101,7 +89,7 @@ public class TwitConnexionView extends JPanel implements IViewObservable<IConnex
 
             @Override
             public void keyReleased(KeyEvent e) {
-
+                // TODO document why this method is empty
             }
         };
         jpfPassword.addKeyListener(keyListener);
@@ -115,7 +103,7 @@ public class TwitConnexionView extends JPanel implements IViewObservable<IConnex
 
     @Override
     public void deleteObserver(IConnexionObserver observer) {
-
+        // TODO document why this method is empty
     }
 
     public void connexion() {
