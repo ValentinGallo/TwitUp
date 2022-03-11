@@ -195,6 +195,7 @@ public class Twitup implements IMainOberserver {
 
     @Override
     public void notifyDirectoryChanged(File file) {
+        System.out.println("Répertoire changé");
         Twitup.this.initDirectory(file.getAbsolutePath());
     }
 
@@ -269,6 +270,9 @@ public class Twitup implements IMainOberserver {
                 } else {
                     System.err.println("System tray not supported!");
                 }
+            }
+            else if(this.currentUser.equals(addedTwit.getTwiter())) {
+                this.goToListTwitPage();
             }
         }
     }

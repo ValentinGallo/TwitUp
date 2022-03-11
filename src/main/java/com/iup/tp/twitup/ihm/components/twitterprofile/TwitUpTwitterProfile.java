@@ -65,7 +65,7 @@ public class TwitUpTwitterProfile extends JPanel implements IViewObservable<ITwi
         c.gridy = 4;
         this.add(jlblNbFollowers, c);
 
-        if (this.observer.getCurrentUser() != null) {
+        if (this.observer.getCurrentUser() != null && !twitterUser.equals(this.observer.getCurrentUser())) {
             this.initButtonFollow();
             c = new GridBagConstraints();
             c.gridx = 0;

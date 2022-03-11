@@ -32,7 +32,7 @@ public class TwitupCreateAccount extends JPanel implements IViewObservable<ICrea
         String tPassword = new String(this.password.getPassword());
         jlblStatus.setForeground(Color.RED);
 
-        if (tNom.equals("") || tTag.equals("") || password.getPassword().length < 1) {
+        if (tNom.equals("") || tTag.equals("")) {
             this.jlblStatus.setText("Tag | Nom | Mdp requis");
         } else if (observer.isAccountExist(tTag)) {
             this.jlblStatus.setText("Tag déjà existant");
@@ -54,7 +54,7 @@ public class TwitupCreateAccount extends JPanel implements IViewObservable<ICrea
         GridBagConstraints c = new GridBagConstraints();
 
 
-        JLabel jlblTitle = new JLabel("Liste des Twit");
+        JLabel jlblTitle = new JLabel("Inscription");
         jlblTitle.setHorizontalAlignment(SwingConstants.CENTER);
         jlblTitle.setFont(new Font("Roboto", Font.BOLD, 12));
         c.fill = GridBagConstraints.HORIZONTAL;
