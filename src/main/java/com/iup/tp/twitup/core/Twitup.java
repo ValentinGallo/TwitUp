@@ -12,10 +12,10 @@ import com.iup.tp.twitup.ihm.TwitupMock;
 import com.iup.tp.twitup.ihm.components.addtwit.AddTwitView;
 import com.iup.tp.twitup.ihm.components.connexion.TwitConnexionView;
 import com.iup.tp.twitup.ihm.components.inscription.TwitupCreateAccount;
-import com.iup.tp.twitup.ihm.components.listtwit.TwitupListTwit;
 import com.iup.tp.twitup.ihm.components.listuser.TwitupListUser;
 import com.iup.tp.twitup.ihm.components.profil.TwitupProfil;
 import com.iup.tp.twitup.ihm.components.twitterprofile.TwitUpTwitterProfile;
+import com.iup.tp.twitup.ihm.components.listtwit.TwitupListTwit;
 import com.iup.tp.twitup.ihm.controller.*;
 
 import javax.swing.*;
@@ -252,6 +252,7 @@ public class Twitup implements IMainOberserver {
 
     @Override
     public void notifyTwitAdded(Twit addedTwit) {
+        System.out.println("Twit added");
         if (this.currentUser != null) {
             if (this.currentUser.isFollowing(addedTwit.getTwiter())) {
                 if (SystemTray.isSupported()) {
@@ -271,6 +272,7 @@ public class Twitup implements IMainOberserver {
 
     @Override
     public void notifyLoggedUser(User user) {
+        System.out.println("User logged");
         this.currentUser = user;
         this.mMainView.initMenuBar(user);
         this.goToListTwitPage();
@@ -278,26 +280,26 @@ public class Twitup implements IMainOberserver {
 
     @Override
     public void notifyTwitDeleted(Twit deletedTwit) {
-        // TODO document why this method is empty
+        System.out.println("Twit supprimé");
     }
 
     @Override
     public void notifyTwitModified(Twit modifiedTwit) {
-        // TODO document why this method is empty
+        System.out.println("Twit modified");
     }
 
     @Override
     public void notifyUserAdded(User addedUser) {
-        // TODO document why this method is empty
+        System.out.println("User added");
     }
 
     @Override
     public void notifyUserDeleted(User deletedUser) {
-        // TODO document why this method is empty
+        System.out.println("User deleted");
     }
 
     @Override
     public void notifyUserModified(User modifiedUser) {
-        // TODO document why this method is empty
+        System.out.println("User modified");
     }
 }
