@@ -102,7 +102,7 @@ public class Twitup implements IMainOberserver {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
+            System.err.println("Error" + e);
         }
 
     }
@@ -189,7 +189,7 @@ public class Twitup implements IMainOberserver {
             mainTray.add(mainTrayIcon);
             mainTrayIcon.displayMessage("TwitUp", twitUser.getUserTag() + " vient de poster un Twit", TrayIcon.MessageType.NONE);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Error" + e);
         }
     }
 

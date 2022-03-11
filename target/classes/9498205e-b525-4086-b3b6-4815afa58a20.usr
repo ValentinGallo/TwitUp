@@ -6,5 +6,6 @@
     <Name>non</Name>
     <AvatarPath>C:\Users\pierr\Pictures\FondEcran.png</AvatarPath>
     <follows>oui</follows>
+    <follows>123</follows>
     <follows>sdfsdf</follows>
 </ns2:userXml>

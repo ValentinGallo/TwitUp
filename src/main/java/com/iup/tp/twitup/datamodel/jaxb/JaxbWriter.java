@@ -73,7 +73,7 @@ public class JaxbWriter {
 			}
 		} catch (Throwable t) {
 			System.err.println("Erreur lors de la génération du fichier pour l'objet : '" + objectToMarshal + "'");
-			t. printStackTrace();
+			System.err.println("Error" + t);
 		}
 
 		return isOk;
